@@ -1,7 +1,7 @@
 package com.pragma.onclass.configuration.exceptionhandler;
 
-import com.pragma.onclass.adapters.driven.jpa.mysql.exception.TechnologyAlreadyExistsException;
-import com.pragma.onclass.configuration.Constants;
+import com.pragma.onclass.domain.exception.TechnologyAlreadyExistsException;
+import com.pragma.onclass.domain.Constants;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,5 +19,4 @@ public class ControllerAdvisor {
         return ResponseEntity.badRequest().body(new ExceptionResponse(Constants.TECHNOLOGY_ALREADY_EXISTS_EXCEPTION_MESSAGE,
                 HttpStatus.BAD_REQUEST.toString(), LocalDateTime.now()));
     }
-
 }

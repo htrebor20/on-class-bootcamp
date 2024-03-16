@@ -1,5 +1,6 @@
 package com.pragma.onclass.domain.api.usecase;
 
+import com.pragma.onclass.domain.exception.TechnologyAlreadyExistsException;
 import com.pragma.onclass.domain.api.ITechnologyServicePort;
 import com.pragma.onclass.domain.model.Technology;
 import com.pragma.onclass.domain.spi.ITechnologyPersistencePort;
@@ -28,6 +29,9 @@ public class TechnologyUseCase implements ITechnologyServicePort {
 
     @Override
     public void saveTechnology(Technology technology) {
+        if (technologyPersistencePort.getTechnology(technology.getName()).isPresent()) {
+            throw new TechnologyAlreadyExistsException();
+        }
         technologyPersistencePort.saveTechnology(technology);
     }
 

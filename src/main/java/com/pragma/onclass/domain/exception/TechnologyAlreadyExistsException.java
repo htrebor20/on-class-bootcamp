@@ -1,4 +1,4 @@
-package com.pragma.onclass.adapters.driven.jpa.mysql.exception;
+package com.pragma.onclass.domain.exception;
 
 public class TechnologyAlreadyExistsException extends RuntimeException {
     public TechnologyAlreadyExistsException() {

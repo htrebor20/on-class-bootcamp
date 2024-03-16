@@ -1,4 +1,4 @@
-package com.pragma.onclass.configuration;
+package com.pragma.onclass.domain;
 
 public class Constants {
     private Constants(){

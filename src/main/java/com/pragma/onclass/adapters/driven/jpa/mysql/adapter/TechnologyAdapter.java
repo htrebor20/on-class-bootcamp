@@ -1,6 +1,5 @@
 package com.pragma.onclass.adapters.driven.jpa.mysql.adapter;
 
-import com.pragma.onclass.adapters.driven.jpa.mysql.exception.TechnologyAlreadyExistsException;
 import com.pragma.onclass.adapters.driven.jpa.mysql.mapper.ITechnologyEntityMapper;
 import com.pragma.onclass.adapters.driven.jpa.mysql.repository.ITechnologyRepository;
 import com.pragma.onclass.domain.model.Technology;
@@ -8,13 +7,15 @@ import com.pragma.onclass.domain.spi.ITechnologyPersistencePort;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
+import java.util.Optional;
+
 @RequiredArgsConstructor
 public class TechnologyAdapter implements ITechnologyPersistencePort {
     private final ITechnologyRepository technologyRepository;
     private final ITechnologyEntityMapper technologyEntityMapper;
     @Override
-    public Technology getTechnology(String name) {
-        return null;
+    public Optional<Technology> getTechnology(String name) {
+        return technologyRepository.findByName(name).map(technology -> technologyEntityMapper.toModel(technology)) ;
     }
 
     @Override
@@ -29,10 +30,6 @@ public class TechnologyAdapter implements ITechnologyPersistencePort {
 
     @Override
     public void saveTechnology(Technology technology) {
-        if (technologyRepository.findByName(technology.getName()).isPresent()) {
-            throw new TechnologyAlreadyExistsException();
-        }
-
         technologyRepository.save(technologyEntityMapper.toEntity(technology));
     }
 
