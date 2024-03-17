@@ -1,10 +1,12 @@
 package com.pragma.onclass.adapters.driven.jpa.mysql.adapter;
 
+import com.pragma.onclass.adapters.driven.jpa.mysql.entity.TechnologyEntity;
 import com.pragma.onclass.adapters.driven.jpa.mysql.mapper.ITechnologyEntityMapper;
 import com.pragma.onclass.adapters.driven.jpa.mysql.repository.ITechnologyRepository;
 import com.pragma.onclass.domain.model.Technology;
 import com.pragma.onclass.domain.spi.ITechnologyPersistencePort;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 import java.util.Optional;
@@ -19,12 +21,13 @@ public class TechnologyAdapter implements ITechnologyPersistencePort {
     }
 
     @Override
-    public List<Technology> getAllTechnology(Integer page, Integer size) {
-        return null;
+    public List<Technology> getAllTechnology(Pageable pageable) {
+       List<TechnologyEntity> response = technologyRepository.findAll(pageable).getContent();
+        return technologyEntityMapper.toTechenologyResponseList(response);
     }
-
     @Override
     public Technology updateTechnology(Technology technology) {
+
         return null;
     }
 

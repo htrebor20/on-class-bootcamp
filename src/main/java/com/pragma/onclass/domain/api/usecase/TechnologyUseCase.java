@@ -1,25 +1,42 @@
 package com.pragma.onclass.domain.api.usecase;
 
+import com.pragma.onclass.adapters.Constants;
 import com.pragma.onclass.domain.exception.TechnologyAlreadyExistsException;
 import com.pragma.onclass.domain.api.ITechnologyServicePort;
 import com.pragma.onclass.domain.model.Technology;
 import com.pragma.onclass.domain.spi.ITechnologyPersistencePort;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 
 import java.util.List;
 
 public class TechnologyUseCase implements ITechnologyServicePort {
     final private ITechnologyPersistencePort technologyPersistencePort;
+
     public TechnologyUseCase(ITechnologyPersistencePort technologyPersistencePort) {
         this.technologyPersistencePort = technologyPersistencePort;
     }
+
     @Override
     public Technology getTechnology(String name) {
         return null;
     }
 
     @Override
-    public List<Technology> getAllTechnology(Integer page, Integer size) {
-        return null;
+    public List<Technology> getAllTechnology(Integer page, Integer size, Constants.Sort sort) {
+        Pageable pagination = null;
+        if (sort != null) {
+            if (sort == Constants.Sort.ASC) {
+                pagination = PageRequest.of(page, size, Sort.by("name").ascending());
+            } else {
+                pagination = PageRequest.of(page, size, Sort.by("name").descending());
+            }
+        } else {
+            pagination = PageRequest.of(page, size);
+        }
+
+        return technologyPersistencePort.getAllTechnology(pagination);
     }
 
     @Override
