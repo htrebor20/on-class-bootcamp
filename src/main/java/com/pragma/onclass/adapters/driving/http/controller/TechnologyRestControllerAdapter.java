@@ -27,7 +27,7 @@ public class TechnologyRestControllerAdapter {
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    @GetMapping("")
+    @GetMapping("/")
     public ResponseEntity<List<TechnologyResponse>> getAllTechnology(@RequestParam Integer page,
                                                                      @RequestParam Integer size,
                                                                      @RequestParam(required = false)
@@ -35,5 +35,4 @@ public class TechnologyRestControllerAdapter {
         List<Technology> response = technologyServicePort.getAllTechnology(page, size, sort);
         return ResponseEntity.ok(technologyRequestMapper.toTechenologyResponseList(response));
     }
-
 }

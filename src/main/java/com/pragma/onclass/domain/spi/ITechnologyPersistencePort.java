@@ -12,4 +12,5 @@ public interface ITechnologyPersistencePort {
     Technology updateTechnology(Technology technology);
     void saveTechnology(Technology technology);
     void deleteTechnology(Long id);
+    List<Technology> getAllByIds(List<Long> ids);
 }
