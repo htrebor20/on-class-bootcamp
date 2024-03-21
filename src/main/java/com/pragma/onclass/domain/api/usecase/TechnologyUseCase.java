@@ -1,10 +1,11 @@
 package com.pragma.onclass.domain.api.usecase;
 
 import com.pragma.onclass.adapters.Constants;
-import com.pragma.onclass.domain.exception.TechnologyAlreadyExistsException;
 import com.pragma.onclass.domain.api.ITechnologyServicePort;
+import com.pragma.onclass.domain.exception.BadRequestValidationException;
 import com.pragma.onclass.domain.model.Technology;
 import com.pragma.onclass.domain.spi.ITechnologyPersistencePort;
+import org.apache.coyote.BadRequestException;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -45,9 +46,9 @@ public class TechnologyUseCase implements ITechnologyServicePort {
     }
 
     @Override
-    public void saveTechnology(Technology technology) {
+    public void saveTechnology(Technology technology) throws BadRequestValidationException {
         if (technologyPersistencePort.getTechnology(technology.getName()).isPresent()) {
-            throw new TechnologyAlreadyExistsException();
+            throw new BadRequestValidationException(com.pragma.onclass.domain.Constants.TECHNOLOGY_ALREADY_EXISTS_EXCEPTION_MESSAGE);
         }
         technologyPersistencePort.saveTechnology(technology);
     }

@@ -1,7 +1,6 @@
 package com.pragma.onclass.configuration.exceptionhandler;
 
-import com.pragma.onclass.domain.exception.TechnologyAlreadyExistsException;
-import com.pragma.onclass.domain.Constants;
+import com.pragma.onclass.domain.exception.BadRequestValidationException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,9 +16,9 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class ControllerAdvisor {
 
-    @ExceptionHandler(TechnologyAlreadyExistsException.class)
-    public ResponseEntity<ExceptionResponse> handleTechnologyAlreadyExistsException() {
-        return ResponseEntity.badRequest().body(new ExceptionResponse(Constants.TECHNOLOGY_ALREADY_EXISTS_EXCEPTION_MESSAGE,
+    @ExceptionHandler(BadRequestValidationException.class)
+    public ResponseEntity<ExceptionResponse> handleBadRequestException(BadRequestValidationException ex) {
+        return ResponseEntity.badRequest().body(new ExceptionResponse(ex.getMessage(),
                 HttpStatus.BAD_REQUEST.toString(), LocalDateTime.now()));
     }
 

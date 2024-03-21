@@ -8,6 +8,7 @@ import com.pragma.onclass.domain.api.ITechnologyServicePort;
 import com.pragma.onclass.domain.model.Technology;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.apache.coyote.BadRequestException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +23,7 @@ public class TechnologyRestControllerAdapter {
     private final ITechnologyRequestMapper technologyRequestMapper;
 
     @PostMapping("")
-    public ResponseEntity<Void> addTechnology(@Valid @RequestBody AddTechnologyRequest request) {
+    public ResponseEntity<Void> addTechnology(@Valid @RequestBody AddTechnologyRequest request) throws BadRequestException {
         technologyServicePort.saveTechnology(technologyRequestMapper.addRequestToTechnology(request));
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }

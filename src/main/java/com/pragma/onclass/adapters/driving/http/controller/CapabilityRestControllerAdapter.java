@@ -7,6 +7,7 @@ import com.pragma.onclass.domain.api.ITechnologyServicePort;
 import com.pragma.onclass.domain.model.Capability;
 import com.pragma.onclass.domain.model.Technology;
 import lombok.RequiredArgsConstructor;
+import org.apache.coyote.BadRequestException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,7 +25,7 @@ public class CapabilityRestControllerAdapter {
     private final ICapabilityRequestMapper capabilityRequestMapper;
     private final ITechnologyServicePort technologyServicePort;
     @PostMapping("")
-    public ResponseEntity<Void> addTechnology(@RequestBody AddCapabilityRequest request) {
+    public ResponseEntity<Void> addTechnology(@RequestBody AddCapabilityRequest request) throws BadRequestException {
         List<Technology> allTechnologiesByIds = technologyServicePort.getAllTechnologiesByIds(request.getTechnologyIds());
         Capability capability = capabilityRequestMapper.addRequestToCapability(request);
         capability.setTechnologies(allTechnologiesByIds);
