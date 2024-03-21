@@ -38,6 +38,11 @@ public class TechnologyAdapter implements ITechnologyPersistencePort {
 
     @Override
     public void deleteTechnology(Long id) {
+    }
 
+    @Override
+    public List<Technology> getAllTechnologiesByIds(List<Long> ids) {
+        List<TechnologyEntity> response = technologyRepository.findAllById(ids);
+        return technologyEntityMapper.toTechenologyResponseList(response);
     }
 }

@@ -2,17 +2,17 @@ package com.pragma.onclass.domain.model;
 
 import java.util.List;
 
-public class Technology {
+public class Capability {
     private final Long id;
     private final String name;
     private final String description;
-    private final List<Capability> capabilityList;
+    private List<Technology> technologies;
 
-    public Technology(Long id, String name, String description, List<Capability> capabilityList) {
+    public Capability(Long id, String name, String description, List<Technology> technologies) {
         this.id = id;
         this.name = name;
         this.description = description;
-        this.capabilityList = capabilityList;
+        this.technologies = technologies;
     }
 
     public Long getId() {
@@ -27,7 +27,11 @@ public class Technology {
         return description;
     }
 
-    public List<Capability> getCapabilityList() {
-        return capabilityList;
+    public List<Technology> getTechnologies() {
+        return technologies;
+    }
+
+    public void setTechnologies(List<Technology> technologies) {
+        this.technologies = technologies;
     }
 }
