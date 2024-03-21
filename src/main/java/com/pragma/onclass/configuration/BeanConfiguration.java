@@ -41,6 +41,6 @@ public class BeanConfiguration {
 
     @Bean
     public ICapabilityServicePort capabilityServicePort() {
-        return new CapabilityUseCase(capabilityPersistencePort(), technologyPersistencePort());
+        return new CapabilityUseCase(capabilityPersistencePort());
     }
 }

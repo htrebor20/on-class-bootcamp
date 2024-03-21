@@ -11,5 +11,6 @@ public interface ITechnologyServicePort {
     Technology updateTechnology(Technology technology);
     void saveTechnology(Technology technology);
     void deleteTechnology(Long id);
+    List<Technology> getAllTechnologiesByIds(List<Long> ids);
 }
 

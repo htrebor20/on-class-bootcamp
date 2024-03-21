@@ -41,7 +41,7 @@ public class TechnologyAdapter implements ITechnologyPersistencePort {
     }
 
     @Override
-    public List<Technology> getAllByIds(List<Long> ids) {
+    public List<Technology> getAllTechnologiesByIds(List<Long> ids) {
         List<TechnologyEntity> response = technologyRepository.findAllById(ids);
         return technologyEntityMapper.toTechenologyResponseList(response);
     }

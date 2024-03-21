@@ -53,7 +53,10 @@ public class TechnologyUseCase implements ITechnologyServicePort {
     }
 
     @Override
-    public void deleteTechnology(Long id) {
+    public void deleteTechnology(Long id) {}
 
+    @Override
+    public List<Technology> getAllTechnologiesByIds(List<Long> ids) {
+        return technologyPersistencePort.getAllTechnologiesByIds(ids);
     }
 }
