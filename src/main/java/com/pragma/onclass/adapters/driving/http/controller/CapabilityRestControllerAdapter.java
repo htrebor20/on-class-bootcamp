@@ -1,6 +1,8 @@
 package com.pragma.onclass.adapters.driving.http.controller;
 
+import com.pragma.onclass.adapters.Constants;
 import com.pragma.onclass.adapters.driving.http.dto.request.AddCapabilityRequest;
+import com.pragma.onclass.adapters.driving.http.dto.response.CapabilityResponse;
 import com.pragma.onclass.adapters.driving.http.mapper.ICapabilityRequestMapper;
 import com.pragma.onclass.domain.api.ICapabilityServicePort;
 import com.pragma.onclass.domain.api.ITechnologyServicePort;
@@ -10,10 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.apache.coyote.BadRequestException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -31,5 +30,13 @@ public class CapabilityRestControllerAdapter {
         capability.setTechnologies(allTechnologiesByIds);
         capabilityServicePort.saveCapability(capability);
         return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+    @GetMapping("/")
+    public ResponseEntity<List<CapabilityResponse>> getAllCapability(@RequestParam Integer page,
+                                                                     @RequestParam Integer size,
+                                                                     @RequestParam(required = false)
+                                                                     Constants.Sort sort) {
+        List<Capability> response = capabilityServicePort.getAllCapability(page, size, sort);
+        return ResponseEntity.ok(capabilityRequestMapper.toCapabilityResponseList(response));
     }
 }
