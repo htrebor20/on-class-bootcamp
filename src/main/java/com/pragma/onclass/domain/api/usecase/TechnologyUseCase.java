@@ -1,11 +1,10 @@
 package com.pragma.onclass.domain.api.usecase;
 
-import com.pragma.onclass.adapters.Constants;
+import com.pragma.onclass.adapters.ConstantsAdapters;
 import com.pragma.onclass.domain.api.ITechnologyServicePort;
 import com.pragma.onclass.domain.exception.BadRequestValidationException;
 import com.pragma.onclass.domain.model.Technology;
 import com.pragma.onclass.domain.spi.ITechnologyPersistencePort;
-import org.apache.coyote.BadRequestException;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -25,10 +24,10 @@ public class TechnologyUseCase implements ITechnologyServicePort {
     }
 
     @Override
-    public List<Technology> getAllTechnology(Integer page, Integer size, Constants.Sort sort) {
+    public List<Technology> getAllTechnology(Integer page, Integer size, ConstantsAdapters.Sort sort) {
         Pageable pagination = null;
         if (sort != null) {
-            if (sort == Constants.Sort.ASC) {
+            if (sort == ConstantsAdapters.Sort.ASC) {
                 pagination = PageRequest.of(page, size, Sort.by("name").ascending());
             } else {
                 pagination = PageRequest.of(page, size, Sort.by("name").descending());

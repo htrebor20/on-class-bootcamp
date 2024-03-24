@@ -22,6 +22,18 @@ public class CapabilityAdapter implements ICapabilityPersistencePort {
     @Override
     public List<Capability> getAllCapability(Pageable pageable) {
         List<CapabilityEntity> response = capabilityRepository.findAll(pageable).getContent();
-        return capabilityEntityMapper.toCapabilityResponseList(response);
+        return capabilityEntityMapper.toCapabilityList(response);
+    }
+
+    @Override
+    public List<Capability> findAllSortedByTechnologyCountAsc(Pageable pageable) {
+        List<CapabilityEntity> response = capabilityRepository.findAllSortedByTechnologyCountAsc(pageable).getContent();
+        return capabilityEntityMapper.toCapabilityList(response);
+    }
+
+    @Override
+    public List<Capability> findAllSortedByTechnologyCountDesc(Pageable pageable) {
+        List<CapabilityEntity> response = capabilityRepository.findAllSortedByTechnologyCountDesc(pageable).getContent();
+        return capabilityEntityMapper.toCapabilityList(response);
     }
 }

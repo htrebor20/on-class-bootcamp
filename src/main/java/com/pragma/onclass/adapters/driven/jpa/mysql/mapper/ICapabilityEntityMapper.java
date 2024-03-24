@@ -8,7 +8,6 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
-
 import java.util.List;
 
 @Mapper(componentModel = "spring")
@@ -19,7 +18,7 @@ public interface ICapabilityEntityMapper {
     CapabilityEntity toEntity(Capability capability);
 
     @Mapping(target = "technologies", expression = "java(mapTechnologies(capabilityEntity.getTechnologies()))")
-    List<Capability> toCapabilityResponseList(List<CapabilityEntity> capabilities);
+    List<Capability> toCapabilityList(List<CapabilityEntity> capabilities);
 
     default List<Technology> mapTechnologies(List<TechnologyEntity> technologyEntities) {
         return technologyEntityMapper.toTechenologyResponseList(technologyEntities);

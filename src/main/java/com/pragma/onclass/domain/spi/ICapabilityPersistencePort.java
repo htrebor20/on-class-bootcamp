@@ -8,4 +8,6 @@ import java.util.List;
 public interface ICapabilityPersistencePort {
     void saveCapability(Capability capability);
     List<Capability> getAllCapability(Pageable pageable);
+    List<Capability> findAllSortedByTechnologyCountAsc(Pageable pageable);
+    List<Capability> findAllSortedByTechnologyCountDesc(Pageable pageable);
 }

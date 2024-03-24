@@ -1,6 +1,6 @@
 package com.pragma.onclass.adapters.driving.http.controller;
 
-import com.pragma.onclass.adapters.Constants;
+import com.pragma.onclass.adapters.ConstantsAdapters;
 import com.pragma.onclass.adapters.driving.http.dto.request.AddCapabilityRequest;
 import com.pragma.onclass.adapters.driving.http.dto.response.CapabilityResponse;
 import com.pragma.onclass.adapters.driving.http.mapper.ICapabilityRequestMapper;
@@ -23,6 +23,7 @@ public class CapabilityRestControllerAdapter {
     private final ICapabilityServicePort capabilityServicePort;
     private final ICapabilityRequestMapper capabilityRequestMapper;
     private final ITechnologyServicePort technologyServicePort;
+
     @PostMapping("")
     public ResponseEntity<Void> addTechnology(@RequestBody AddCapabilityRequest request) throws BadRequestException {
         List<Technology> allTechnologiesByIds = technologyServicePort.getAllTechnologiesByIds(request.getTechnologyIds());
@@ -31,12 +32,13 @@ public class CapabilityRestControllerAdapter {
         capabilityServicePort.saveCapability(capability);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
+
     @GetMapping("/")
     public ResponseEntity<List<CapabilityResponse>> getAllCapability(@RequestParam Integer page,
                                                                      @RequestParam Integer size,
-                                                                     @RequestParam(required = false)
-                                                                     Constants.Sort sort) {
-        List<Capability> response = capabilityServicePort.getAllCapability(page, size, sort);
+                                                                     @RequestParam(required = false) ConstantsAdapters.Sort sort,
+                                                                     @RequestParam(required = false) ConstantsAdapters.SortBy sortBy) {
+        List<Capability> response = capabilityServicePort.getAllCapability(page, size, sort, sortBy);
         return ResponseEntity.ok(capabilityRequestMapper.toCapabilityResponseList(response));
     }
 }
