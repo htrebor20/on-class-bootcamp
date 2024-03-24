@@ -9,8 +9,6 @@ import java.util.Optional;
 public interface ITechnologyPersistencePort {
     Optional<Technology> getTechnology(String name);
     List<Technology> getAllTechnology(Pageable pageable);
-    Technology updateTechnology(Technology technology);
     void saveTechnology(Technology technology);
-    void deleteTechnology(Long id);
     List<Technology> getAllTechnologiesByIds(List<Long> ids);
 }

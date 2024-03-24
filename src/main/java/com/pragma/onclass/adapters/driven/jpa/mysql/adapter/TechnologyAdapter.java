@@ -25,19 +25,10 @@ public class TechnologyAdapter implements ITechnologyPersistencePort {
        List<TechnologyEntity> response = technologyRepository.findAll(pageable).getContent();
         return technologyEntityMapper.toTechenologyResponseList(response);
     }
-    @Override
-    public Technology updateTechnology(Technology technology) {
-
-        return null;
-    }
 
     @Override
     public void saveTechnology(Technology technology) {
         technologyRepository.save(technologyEntityMapper.toEntity(technology));
-    }
-
-    @Override
-    public void deleteTechnology(Long id) {
     }
 
     @Override

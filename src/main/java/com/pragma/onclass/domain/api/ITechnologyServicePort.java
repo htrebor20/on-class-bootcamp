@@ -9,9 +9,7 @@ import java.util.List;
 public interface ITechnologyServicePort {
     Technology getTechnology(String name);
     List<Technology> getAllTechnology(Integer page, Integer size, ConstantsAdapters.Sort sort);
-    Technology updateTechnology(Technology technology);
-    void saveTechnology(Technology technology) throws BadRequestException;
-    void deleteTechnology(Long id);
-    List<Technology> getAllTechnologiesByIds(List<Long> ids);
+       void saveTechnology(Technology technology) throws BadRequestException;
+      List<Technology> getAllTechnologiesByIds(List<Long> ids);
 }
 

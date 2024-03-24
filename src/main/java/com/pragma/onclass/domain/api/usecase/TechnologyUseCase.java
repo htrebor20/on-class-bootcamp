@@ -12,7 +12,7 @@ import org.springframework.data.domain.Sort;
 import java.util.List;
 
 public class TechnologyUseCase implements ITechnologyServicePort {
-    final private ITechnologyPersistencePort technologyPersistencePort;
+    private final ITechnologyPersistencePort technologyPersistencePort;
 
     public TechnologyUseCase(ITechnologyPersistencePort technologyPersistencePort) {
         this.technologyPersistencePort = technologyPersistencePort;
@@ -40,20 +40,12 @@ public class TechnologyUseCase implements ITechnologyServicePort {
     }
 
     @Override
-    public Technology updateTechnology(Technology technology) {
-        return null;
-    }
-
-    @Override
     public void saveTechnology(Technology technology) throws BadRequestValidationException {
         if (technologyPersistencePort.getTechnology(technology.getName()).isPresent()) {
             throw new BadRequestValidationException(com.pragma.onclass.domain.Constants.TECHNOLOGY_ALREADY_EXISTS_EXCEPTION_MESSAGE);
         }
         technologyPersistencePort.saveTechnology(technology);
     }
-
-    @Override
-    public void deleteTechnology(Long id) {}
 
     @Override
     public List<Technology> getAllTechnologiesByIds(List<Long> ids) {

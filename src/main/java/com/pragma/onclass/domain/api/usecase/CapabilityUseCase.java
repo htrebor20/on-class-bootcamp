@@ -13,7 +13,7 @@ import org.springframework.data.domain.Sort;
 import java.util.List;
 
 public class CapabilityUseCase implements ICapabilityServicePort {
-    final private ICapabilityPersistencePort capabilityPersistencePort;
+    private final ICapabilityPersistencePort capabilityPersistencePort;
 
     public CapabilityUseCase(ICapabilityPersistencePort capabilityPersistencePort) {
         this.capabilityPersistencePort = capabilityPersistencePort;
