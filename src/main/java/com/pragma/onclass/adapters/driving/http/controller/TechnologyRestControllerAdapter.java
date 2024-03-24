@@ -1,6 +1,6 @@
 package com.pragma.onclass.adapters.driving.http.controller;
 
-import com.pragma.onclass.adapters.Constants;
+import com.pragma.onclass.adapters.ConstantsAdapters;
 import com.pragma.onclass.adapters.driving.http.dto.request.AddTechnologyRequest;
 import com.pragma.onclass.adapters.driving.http.dto.response.TechnologyResponse;
 import com.pragma.onclass.adapters.driving.http.mapper.ITechnologyRequestMapper;
@@ -32,7 +32,7 @@ public class TechnologyRestControllerAdapter {
     public ResponseEntity<List<TechnologyResponse>> getAllTechnology(@RequestParam Integer page,
                                                                      @RequestParam Integer size,
                                                                      @RequestParam(required = false)
-                                                                     Constants.Sort sort) {
+                                                                     ConstantsAdapters.Sort sort) {
         List<Technology> response = technologyServicePort.getAllTechnology(page, size, sort);
         return ResponseEntity.ok(technologyRequestMapper.toTechenologyResponseList(response));
     }
