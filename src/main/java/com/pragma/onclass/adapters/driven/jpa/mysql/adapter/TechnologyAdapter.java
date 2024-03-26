@@ -23,7 +23,7 @@ public class TechnologyAdapter implements ITechnologyPersistencePort {
     @Override
     public List<Technology> getAllTechnology(Pageable pageable) {
        List<TechnologyEntity> response = technologyRepository.findAll(pageable).getContent();
-        return technologyEntityMapper.toTechenologyResponseList(response);
+        return technologyEntityMapper.toTechenologyList(response);
     }
 
     @Override
@@ -34,6 +34,6 @@ public class TechnologyAdapter implements ITechnologyPersistencePort {
     @Override
     public List<Technology> getAllTechnologiesByIds(List<Long> ids) {
         List<TechnologyEntity> response = technologyRepository.findAllById(ids);
-        return technologyEntityMapper.toTechenologyResponseList(response);
+        return technologyEntityMapper.toTechenologyList(response);
     }
 }

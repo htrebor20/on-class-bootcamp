@@ -36,4 +36,10 @@ public class CapabilityAdapter implements ICapabilityPersistencePort {
         List<CapabilityEntity> response = capabilityRepository.findAllSortedByTechnologyCountDesc(pageable).getContent();
         return capabilityEntityMapper.toCapabilityList(response);
     }
+
+    @Override
+    public List<Capability> getAllCapabilitiesByIds(List<Long> ids) {
+        List<CapabilityEntity> response = capabilityRepository.findAllById(ids);
+        return capabilityEntityMapper.toCapabilityList(response);
+    }
 }

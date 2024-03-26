@@ -14,5 +14,5 @@ public interface ITechnologyEntityMapper {
     @Mapping(target = "capabilityList", ignore = true)
     TechnologyEntity toEntity(Technology technology);
     @Mapping(target = "capabilityList", ignore = true)
-    List<Technology> toTechenologyResponseList(List<TechnologyEntity> technologies);
+    List<Technology> toTechenologyList(List<TechnologyEntity> technologies);
 }

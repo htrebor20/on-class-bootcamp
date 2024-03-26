@@ -24,7 +24,6 @@ public class CapabilityUseCase implements ICapabilityServicePort {
         if (capability.getTechnologies().size() < 3 || capability.getTechnologies().size() > 20) {
             throw new BadRequestValidationException(Constants.CAPABILITY_VALIDATIONS_EXCEPTION_MESSAGE);
         }
-        capabilityPersistencePort.saveCapability(capability);
     }
 
     @Override
@@ -51,4 +50,10 @@ public class CapabilityUseCase implements ICapabilityServicePort {
         }
         return capabilityPersistencePort.getAllCapability(pagination);
     }
+
+    @Override
+    public List<Capability> getAllCapabilitiesByIds(List<Long> ids) {
+        return capabilityPersistencePort.getAllCapabilitiesByIds(ids);
+    }
 }
+
