@@ -9,4 +9,5 @@ import java.util.List;
 public interface ICapabilityServicePort {
     void saveCapability(Capability capability) throws BadRequestException;
     List<Capability> getAllCapability(Integer page, Integer size, ConstantsAdapters.Sort sortType, ConstantsAdapters.SortBy sortBy);
+    List<Capability> getAllCapabilitiesByIds(List<Long> ids);
 }

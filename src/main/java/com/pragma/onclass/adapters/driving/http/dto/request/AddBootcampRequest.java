@@ -7,9 +7,9 @@ import java.util.List;
 
 @AllArgsConstructor
 @Getter
-public class AddCapabilityRequest {
+public class AddBootcampRequest {
     private final Long id;
     private final String name;
     private final String description;
-    private final List<Long> technologyIds;
+    private final List<Long> capabilityIds;
 }

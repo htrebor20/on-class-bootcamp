@@ -10,4 +10,5 @@ public interface ICapabilityPersistencePort {
     List<Capability> getAllCapability(Pageable pageable);
     List<Capability> findAllSortedByTechnologyCountAsc(Pageable pageable);
     List<Capability> findAllSortedByTechnologyCountDesc(Pageable pageable);
+    List<Capability> getAllCapabilitiesByIds(List<Long> ids);
 }
