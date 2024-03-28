@@ -1,7 +1,7 @@
 package com.pragma.onclass.adapters.driving.http.mapper;
 
 import com.pragma.onclass.adapters.driving.http.dto.request.AddTechnologyRequest;
-import com.pragma.onclass.adapters.driving.http.dto.response.CapacityTechnologyResponse;
+import com.pragma.onclass.adapters.driving.http.dto.response.CapabilityTechnologyResponse;
 import com.pragma.onclass.adapters.driving.http.dto.response.TechnologyResponse;
 import com.pragma.onclass.domain.model.Technology;
 import org.mapstruct.Mapper;
@@ -13,12 +13,11 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface ITechnologyRequestMapper {
     @Mapping(target = "id", ignore = true)
-    @Mapping(target = "capabilityList", ignore = true)
     Technology addRequestToTechnology(AddTechnologyRequest addTechnologyRequest);
 
     List<TechnologyResponse> toTechenologyResponseList(List<Technology> technologies);
 
     @Named("mapListTechnologiesWithoutDesc")
     @Mapping(target = "description", ignore = true)
-    List<CapacityTechnologyResponse> toTechnologyResponseListWithoutDesc(List<Technology> technologies);
+    List<CapabilityTechnologyResponse> toTechnologyResponseListWithoutDesc(List<Technology> technologies);
 }

@@ -20,13 +20,12 @@ public class CapabilityEntity {
     private  Long id;
     private  String  name;
     private  String description;
+
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "capability_technology",
             joinColumns = @JoinColumn(name = "capability_id"),
             inverseJoinColumns = @JoinColumn(name = "technology_id"))
     private List<TechnologyEntity> technologies;
-
-    @ManyToMany(mappedBy = "capabilities", fetch = FetchType.LAZY)
-    private List<BootcampEntity> bootcampList;
 }
+
 

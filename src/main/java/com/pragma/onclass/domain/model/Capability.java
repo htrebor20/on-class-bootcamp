@@ -7,14 +7,12 @@ public class Capability {
     private final String name;
     private final String description;
     private List<Technology> technologies;
-    private List<Bootcamp> bootcampList;
 
-    public Capability(Long id, String name, String description, List<Technology> technologies, List<Bootcamp> bootcampList) {
+    public Capability(Long id, String name, String description, List<Technology> technologies) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.technologies = technologies;
-        this.bootcampList = bootcampList;
     }
 
     public Long getId() {
@@ -36,8 +34,6 @@ public class Capability {
     public void setTechnologies(List<Technology> technologies) {
         this.technologies = technologies;
     }
-    public List<Bootcamp> getBootcampList() {
-        return bootcampList;
-    }
 }
+
 

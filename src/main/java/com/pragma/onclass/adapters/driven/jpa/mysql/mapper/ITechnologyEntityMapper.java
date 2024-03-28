@@ -4,15 +4,17 @@ import com.pragma.onclass.adapters.driven.jpa.mysql.entity.TechnologyEntity;
 import com.pragma.onclass.domain.model.Technology;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.Named;
 
 import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface ITechnologyEntityMapper {
-    @Mapping(target = "capabilityList", ignore = true)
     Technology toModel(TechnologyEntity technologyEntity);
-    @Mapping(target = "capabilityList", ignore = true)
+
     TechnologyEntity toEntity(Technology technology);
+
+    @Named("toTechnologyList")
     @Mapping(target = "capabilityList", ignore = true)
     List<Technology> toTechenologyList(List<TechnologyEntity> technologies);
 }
