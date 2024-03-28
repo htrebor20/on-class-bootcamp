@@ -25,7 +25,7 @@ public class CapabilityRestControllerAdapter {
     private final ITechnologyServicePort technologyServicePort;
 
     @PostMapping("")
-    public ResponseEntity<Void> addTechnology(@RequestBody AddCapabilityRequest request) throws BadRequestException {
+    public ResponseEntity<Void> addCapability(@RequestBody AddCapabilityRequest request) throws BadRequestException {
         List<Technology> allTechnologiesByIds = technologyServicePort.getAllTechnologiesByIds(request.getTechnologyIds());
         Capability capability = capabilityRequestMapper.addRequestToCapability(request);
         capability.setTechnologies(allTechnologiesByIds);
