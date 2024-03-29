@@ -49,7 +49,7 @@ public class BeanConfiguration {
 
     @Bean
     public ICapabilityServicePort capabilityServicePort() {
-        return new CapabilityUseCase(capabilityPersistencePort());
+        return new CapabilityUseCase(capabilityPersistencePort(), technologyServicePort());
     }
 
     @Bean

@@ -3,9 +3,12 @@ package com.pragma.onclass.domain.api.usecase;
 import com.pragma.onclass.adapters.ConstantsAdapters;
 import com.pragma.onclass.domain.Constants;
 import com.pragma.onclass.domain.api.ICapabilityServicePort;
+import com.pragma.onclass.domain.api.ITechnologyServicePort;
 import com.pragma.onclass.domain.exception.BadRequestValidationException;
 import com.pragma.onclass.domain.model.Capability;
+import com.pragma.onclass.domain.model.Technology;
 import com.pragma.onclass.domain.spi.ICapabilityPersistencePort;
+import com.pragma.onclass.utilities.Utility;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -14,16 +17,25 @@ import java.util.List;
 
 public class CapabilityUseCase implements ICapabilityServicePort {
     private final ICapabilityPersistencePort capabilityPersistencePort;
-
-    public CapabilityUseCase(ICapabilityPersistencePort capabilityPersistencePort) {
+    private final ITechnologyServicePort technologyServicePort;
+    public CapabilityUseCase(ICapabilityPersistencePort capabilityPersistencePort, ITechnologyServicePort technologyServicePort) {
         this.capabilityPersistencePort = capabilityPersistencePort;
+        this.technologyServicePort = technologyServicePort;
     }
 
     @Override
     public void saveCapability(Capability capability) throws BadRequestValidationException {
-        if (capability.getTechnologies().size() < 3 || capability.getTechnologies().size() > 20) {
-            throw new BadRequestValidationException(Constants.CAPABILITY_VALIDATIONS_EXCEPTION_MESSAGE);
+        List<Long> ids = capability.getTechnologies().stream().map(technology -> technology.getId()).toList();
+
+        if(Utility.hasRepeatedIds(ids)) {
+            throw new BadRequestValidationException(Constants.CAPABILITY_REPEATED_VALIDATIONS_EXCEPTION_MESSAGE);}
+
+        if (ids.size() < 3 || ids.size() > 20) {
+                throw new BadRequestValidationException(Constants.CAPABILITY_VALIDATIONS_EXCEPTION_MESSAGE);
         }
+
+        List<Technology> technologies = technologyServicePort.getAllTechnologiesByIds(ids);
+        capability.setTechnologies(technologies);
         capabilityPersistencePort.saveCapability(capability);
     }
 
@@ -57,5 +69,6 @@ public class CapabilityUseCase implements ICapabilityServicePort {
         return capabilityPersistencePort.getAllCapabilitiesByIds(ids);
     }
 }
+
 
 
