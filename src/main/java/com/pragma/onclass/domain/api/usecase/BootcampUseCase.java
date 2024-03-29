@@ -25,12 +25,12 @@ public class BootcampUseCase implements IBootcampServicePort {
 
     @Override
     public void saveBootcamp(Bootcamp bootcamp) {
-        List<Long> ids = bootcamp.getCapabilities().stream().map(capability -> capability.getId()).toList();
-        List<Capability> allCapabilitiesByIds = capabilityServicePort.getAllCapabilitiesByIds(ids);
-        bootcamp.setCapabilities(allCapabilitiesByIds);
         if (bootcamp.getCapabilities().isEmpty() || bootcamp.getCapabilities().size() > 4) {
             throw new BadRequestValidationException(Constants.BOOTCAMP_VALIDATIONS_EXCEPTION_MESSAGE);
         }
+        List<Long> ids = bootcamp.getCapabilities().stream().map(capability -> capability.getId()).toList();
+        List<Capability> allCapabilitiesByIds = capabilityServicePort.getAllCapabilitiesByIds(ids);
+        bootcamp.setCapabilities(allCapabilitiesByIds);
         bootcampPersistencePort.saveBootcamp(bootcamp);
     }
 

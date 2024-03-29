@@ -19,11 +19,6 @@ public class TechnologyUseCase implements ITechnologyServicePort {
     }
 
     @Override
-    public Technology getTechnology(String name) {
-        return null;
-    }
-
-    @Override
     public List<Technology> getAllTechnology(Integer page, Integer size, ConstantsAdapters.Sort sort) {
         Pageable pagination = null;
         if (sort != null) {
