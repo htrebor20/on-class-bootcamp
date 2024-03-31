@@ -1,13 +1,17 @@
 package com.pragma.onclass.testdata;
 
 import com.pragma.onclass.adapters.ConstantsAdapters;
+import com.pragma.onclass.adapters.driving.http.dto.request.AddCapabilityRequest;
 import com.pragma.onclass.adapters.driving.http.dto.request.AddTechnologyRequest;
+import com.pragma.onclass.adapters.driving.http.dto.response.CapabilityResponse;
+import com.pragma.onclass.adapters.driving.http.dto.response.CapabilityTechnologyResponse;
 import com.pragma.onclass.adapters.driving.http.dto.response.TechnologyResponse;
 import com.pragma.onclass.domain.model.Bootcamp;
 import com.pragma.onclass.domain.model.Capability;
 import com.pragma.onclass.domain.model.Technology;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 
@@ -58,6 +62,23 @@ public class TestData {
         }
     }
 
+    public static List<CapabilityTechnologyResponse> getCapabilityTechnologyResponseList() {
+        return getCapabilityTechnologyResponseList(3);
+    }
+
+    public static List<CapabilityTechnologyResponse> getCapabilityTechnologyResponseList(int maxCapacities) {
+        List<CapabilityTechnologyResponse> capabilities = new ArrayList<>();
+        capabilities.add(new CapabilityTechnologyResponse(1L, "Java"));
+        capabilities.add(new CapabilityTechnologyResponse(2L, "Python"));
+        capabilities.add(new CapabilityTechnologyResponse(3L, "JavaScript"));
+
+        if (maxCapacities > 0 && maxCapacities < capabilities.size()) {
+            return capabilities.subList(0, maxCapacities);
+        } else {
+            return capabilities;
+        }
+    }
+
     public static List<Technology> getTechnologiesListRepeat() {
         List<Technology> technologies = getTechnologiesList();
         technologies.add(new Technology(1L, "Java", "Java language"));
@@ -92,6 +113,10 @@ public class TestData {
         return new Capability(1L, "Backend Java", "Backend Java Description", getTechnologiesList());
     }
 
+    public static AddCapabilityRequest createCapabilityDTO() {
+        return new AddCapabilityRequest (1L, "Backend Java", "Backend Java Description", Arrays.asList(1L, 2L, 3L));
+    }
+
     public static Capability createCapabilityModelWithRepeatTech() {
         List<Technology> technologies = getTechnologiesListRepeat();
         technologies.add(new Technology(1L, "Java", "Java language"));
@@ -108,6 +133,22 @@ public class TestData {
         capabilities.add(new Capability(2L, "Frontend JavaScript", "Frontend JavaScript Description", getTechnologiesList(3)));
         capabilities.add(new Capability(3L, "Mobile Development", "Mobile Development Description", getTechnologiesList(5)));
 
+        if (maxCapacities > 0 && maxCapacities < capabilities.size()) {
+            return capabilities.subList(0, maxCapacities);
+        } else {
+            return capabilities;
+        }
+    }
+
+    public static List<CapabilityResponse> getCapabilityDTOList() {
+        return getCapabilityDTOList(3);
+    }
+
+    public static List<CapabilityResponse> getCapabilityDTOList(int maxCapacities) {
+        List<CapabilityResponse> capabilities = new ArrayList<>();
+        capabilities.add(new CapabilityResponse(1L, "Backend Java", "Backend Java Description", getCapabilityTechnologyResponseList(2)));
+        capabilities.add(new CapabilityResponse(2L, "Frontend JavaScript", "Frontend JavaScript Description", getCapabilityTechnologyResponseList(3)));
+        capabilities.add(new CapabilityResponse(3L, "Mobile Development", "Mobile Development Description",getCapabilityTechnologyResponseList(1)));
         if (maxCapacities > 0 && maxCapacities < capabilities.size()) {
             return capabilities.subList(0, maxCapacities);
         } else {
@@ -133,11 +174,31 @@ public class TestData {
         if (sortOrder == ConstantsAdapters.Sort.DESC) {
             comparator = comparator.reversed();
         }
-
         capabilities.sort(comparator);
         return capabilities;
     }
 
+    public static List<CapabilityResponse> getCapabilitiesDTOListSorted(ConstantsAdapters.Sort sortOrder) {
+        List<CapabilityResponse> capabilities = getCapabilityDTOList();
+        Comparator<CapabilityResponse> comparator = Comparator.comparing(CapabilityResponse::getName);
+
+        if (sortOrder == ConstantsAdapters.Sort.DESC) {
+            comparator = comparator.reversed();
+        }
+        capabilities.sort(comparator);
+        return capabilities;
+    }
+
+    public static List<CapabilityResponse> getCapabilitiesDTOListSortedByTechnologyCount(ConstantsAdapters.Sort sortOrder) {
+        List<CapabilityResponse> capabilities = getCapabilityDTOList();
+        Comparator<CapabilityResponse> comparator = Comparator.comparingInt(capability -> capability.getTechnologies().size());
+
+        if (sortOrder == ConstantsAdapters.Sort.DESC) {
+            comparator = comparator.reversed();
+        }
+        capabilities.sort(comparator);
+        return capabilities;
+    }
     /// BOOTCAMP ///
 
     public static Bootcamp createBootcamp() {
