@@ -29,10 +29,9 @@ public class TechnologyRestControllerAdapter {
     }
 
     @GetMapping("/")
-    public ResponseEntity<List<TechnologyResponse>> getAllTechnology(@RequestParam Integer page,
-                                                                     @RequestParam Integer size,
-                                                                     @RequestParam(required = false)
-                                                                     ConstantsAdapters.Sort sort) {
+    public ResponseEntity<List<TechnologyResponse>> getAllTechnology(@RequestParam(defaultValue = ConstantsAdapters.DEFAULT_PAGE) Integer page,
+                                                                     @RequestParam(defaultValue = ConstantsAdapters.DEFAULT_SIZE) Integer size,
+                                                                     @RequestParam(required = false) ConstantsAdapters.Sort sort) {
         List<Technology> response = technologyServicePort.getAllTechnology(page, size, sort);
         return ResponseEntity.ok(technologyRequestMapper.toTechenologyResponseList(response));
     }

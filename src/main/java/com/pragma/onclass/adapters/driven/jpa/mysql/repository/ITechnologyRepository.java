@@ -10,6 +10,4 @@ import java.util.Optional;
 public interface ITechnologyRepository extends JpaRepository<TechnologyEntity, Long> {
     Optional<TechnologyEntity> findByName(String name);
     Page<TechnologyEntity> findAll(Pageable pageable);
-
-
 }
