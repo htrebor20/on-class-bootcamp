@@ -1,11 +1,10 @@
 package com.pragma.onclass.testdata;
 
 import com.pragma.onclass.adapters.ConstantsAdapters;
+import com.pragma.onclass.adapters.driving.http.dto.request.AddBootcampRequest;
 import com.pragma.onclass.adapters.driving.http.dto.request.AddCapabilityRequest;
 import com.pragma.onclass.adapters.driving.http.dto.request.AddTechnologyRequest;
-import com.pragma.onclass.adapters.driving.http.dto.response.CapabilityResponse;
-import com.pragma.onclass.adapters.driving.http.dto.response.CapabilityTechnologyResponse;
-import com.pragma.onclass.adapters.driving.http.dto.response.TechnologyResponse;
+import com.pragma.onclass.adapters.driving.http.dto.response.*;
 import com.pragma.onclass.domain.model.Bootcamp;
 import com.pragma.onclass.domain.model.Capability;
 import com.pragma.onclass.domain.model.Technology;
@@ -199,10 +198,32 @@ public class TestData {
         capabilities.sort(comparator);
         return capabilities;
     }
+
+    public static List<BootcampCapabilityResponse> getBootcampCapabilitiesResponseList() {
+        return getBootcampCapabilitiesResponseList(3);
+    }
+
+    public static List<BootcampCapabilityResponse> getBootcampCapabilitiesResponseList(int maxCapacities) {
+        List<BootcampCapabilityResponse> capabilities = new ArrayList<>();
+        capabilities.add(new BootcampCapabilityResponse(1L, "Backend Java", getCapabilityTechnologyResponseList()));
+        capabilities.add(new BootcampCapabilityResponse(2L, "Backend Python", getCapabilityTechnologyResponseList()));
+        capabilities.add(new BootcampCapabilityResponse(3L, "Frontend JavaScript", getCapabilityTechnologyResponseList()));
+
+        if (maxCapacities > 0 && maxCapacities < capabilities.size()) {
+            return capabilities.subList(0, maxCapacities);
+        } else {
+            return capabilities;
+        }
+    }
+
     /// BOOTCAMP ///
 
     public static Bootcamp createBootcamp() {
         return new Bootcamp(1L, "Bootcamp Pragma", "Bootcamp Pragma Backend", getCapabilityList());
+    }
+
+    public static AddBootcampRequest createBootcampDTO() {
+        return new AddBootcampRequest (1L, "Pragma Backend", "Backend Java Description", Arrays.asList(1L, 2L, 3L));
     }
 
     public static List<Bootcamp> getBootcampsList() {
@@ -215,6 +236,22 @@ public class TestData {
         bootcamp.add(new Bootcamp(2L, "Bootcamp Pragma II", "Frontend Javascript Description", getCapabilityList(1)));
         bootcamp.add(new Bootcamp(3L, "Bootcamp Pragma III", "Mobile Flutter Description", getCapabilityList(3)));
 
+        if (maxCapacities > 0 && maxCapacities < bootcamp.size()) {
+            return bootcamp.subList(0, maxCapacities);
+        } else {
+            return bootcamp;
+        }
+    }
+
+    public static List<BootcampResponse> getBootcampsDTOList() {
+        return getBootcampsDTOList(3);
+    }
+
+    public static List<BootcampResponse> getBootcampsDTOList(int maxCapacities) {
+        List<BootcampResponse> bootcamp = new ArrayList<>();
+        bootcamp.add(new BootcampResponse(1L, "Bootcamp Pragma I", "Backend Java Description", getBootcampCapabilitiesResponseList(2)));
+        bootcamp.add(new BootcampResponse(2L, "Bootcamp Pragma II", "Frontend JavaScript Description", getBootcampCapabilitiesResponseList(3)));
+        bootcamp.add(new BootcampResponse(3L, "Bootcamp Pragma III", "Mobile Development Description",getBootcampCapabilitiesResponseList(1)));
         if (maxCapacities > 0 && maxCapacities < bootcamp.size()) {
             return bootcamp.subList(0, maxCapacities);
         } else {
@@ -243,5 +280,27 @@ public class TestData {
         }
         bootcampList.sort(comparator);
         return bootcampList;
+    }
+
+    public static List<BootcampResponse> getBootcampDTOListSorted(ConstantsAdapters.Sort sortOrder) {
+        List<BootcampResponse> bootcamp = getBootcampsDTOList();
+        Comparator<BootcampResponse> comparator = Comparator.comparing(BootcampResponse::getName);
+
+        if (sortOrder == ConstantsAdapters.Sort.DESC) {
+            comparator = comparator.reversed();
+        }
+        bootcamp.sort(comparator);
+        return bootcamp;
+    }
+
+    public static List<BootcampResponse> getBootcampDTOListSortedByTechnologyCount(ConstantsAdapters.Sort sortOrder) {
+        List<BootcampResponse> bootcamps = getBootcampsDTOList();
+        Comparator<BootcampResponse> comparator = Comparator.comparingInt(bootcamp -> bootcamp.getCapabilities().size());
+
+        if (sortOrder == ConstantsAdapters.Sort.DESC) {
+            comparator = comparator.reversed();
+        }
+        bootcamps.sort(comparator);
+        return bootcamps;
     }
 }

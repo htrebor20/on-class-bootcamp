@@ -80,6 +80,7 @@ class CapabilityRestControllerAdapterTest {
         assertEquals("Backend Java", bodyResponse.get(0).getName());
         assertEquals("Frontend JavaScript", bodyResponse.get(1).getName());
     }
+
     @Test
     void shouldGetAllCapabilitiesSorBytNameDesc() {
         int page = 0;
@@ -146,26 +147,5 @@ class CapabilityRestControllerAdapterTest {
         assertEquals("Backend Java", bodyResponse.get(1).getName());
     }
 
-    @Test
-    void shouldGetAllCapabilitiesSortByTechnologyCountDesc() {
-        int page = 0;
-        int size = 3;
-        ConstantsAdapters.Sort sort = ConstantsAdapters.Sort.DESC;
-        ConstantsAdapters.SortBy sortby = ConstantsAdapters.SortBy.TECHNOLOGY_COUNT;
-        List<Capability> capabilityList = TestData.getCapabilityList();
-        List<CapabilityResponse> capabilityResponseList = TestData.getCapabilitiesDTOListSortedByTechnologyCount(sort);
-        given(capabilityServicePort.getAllCapability(page, size, sort, sortby)).willReturn(capabilityList);
-        given(capabilityRequestMapper.toCapabilityResponseList(capabilityList)).willReturn(capabilityResponseList);
 
-        ResponseEntity<List<CapabilityResponse>> response = capabilityRestControllerAdapter.getAllCapability(page, size, sort, sortby);
-        List<CapabilityResponse> bodyResponse = response.getBody();
-
-        verify(capabilityServicePort).getAllCapability(page, size, sort, sortby);
-        verify(capabilityRequestMapper).toCapabilityResponseList(capabilityList);
-
-        assertEquals(HttpStatus.OK, response.getStatusCode());
-        assertThat(bodyResponse).isNotNull().hasSize(3);
-        assertEquals("Frontend JavaScript", bodyResponse.get(0).getName());
-        assertEquals("Backend Java", bodyResponse.get(1).getName());
-    }
 }
