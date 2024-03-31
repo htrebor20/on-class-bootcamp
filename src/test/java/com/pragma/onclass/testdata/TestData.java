@@ -1,6 +1,8 @@
 package com.pragma.onclass.testdata;
 
 import com.pragma.onclass.adapters.ConstantsAdapters;
+import com.pragma.onclass.adapters.driving.http.dto.request.AddTechnologyRequest;
+import com.pragma.onclass.adapters.driving.http.dto.response.TechnologyResponse;
 import com.pragma.onclass.domain.model.Bootcamp;
 import com.pragma.onclass.domain.model.Capability;
 import com.pragma.onclass.domain.model.Technology;
@@ -12,9 +14,9 @@ import java.util.List;
 public class TestData {
 
     /// TECHNOLOGY ///
-    public static Technology createTechnologyModel() {
-        return new Technology(1L, "java", "java language");
-    }
+    public static Technology createTechnologyModel() { return new Technology(1L, "java", "java language");}
+
+    public static AddTechnologyRequest createTechnologyDTO() {return new AddTechnologyRequest("java", "java language");}
 
     public static List<Technology> getTechnologiesList() {
         return getTechnologiesList(5);
@@ -36,6 +38,26 @@ public class TestData {
         }
     }
 
+    public static List<TechnologyResponse> getTechnologiesDTOList() {
+        return getTechnologiesDTOList(5);
+    }
+
+    public static List<TechnologyResponse> getTechnologiesDTOList(int maxTechnologies) {
+        List<TechnologyResponse> technologies = new ArrayList<>();
+
+        technologies.add(new TechnologyResponse(1L, "Java", "Java language"));
+        technologies.add(new TechnologyResponse(2L, "Python", "Python language"));
+        technologies.add(new TechnologyResponse(3L, "JavaScript", "JavaScript language"));
+        technologies.add(new TechnologyResponse(4L, "C++", "C++ programming language"));
+        technologies.add(new TechnologyResponse(5L, "Ruby", "Ruby programming language"));
+
+        if (maxTechnologies > 0 && maxTechnologies < technologies.size()) {
+            return technologies.subList(0, maxTechnologies);
+        } else {
+            return technologies;
+        }
+    }
+
     public static List<Technology> getTechnologiesListRepeat() {
         List<Technology> technologies = getTechnologiesList();
         technologies.add(new Technology(1L, "Java", "Java language"));
@@ -45,6 +67,17 @@ public class TestData {
     public static List<Technology> getTechnologiesListSorted(ConstantsAdapters.Sort sortOrder) {
         List<Technology> technologies = getTechnologiesList();
         Comparator<Technology> comparator = Comparator.comparing(Technology::getName);
+
+        if (sortOrder == ConstantsAdapters.Sort.DESC) {
+            comparator = comparator.reversed();
+        }
+        technologies.sort(comparator);
+        return technologies;
+    }
+
+    public static List<TechnologyResponse> getTechnologiesDTOListSorted(ConstantsAdapters.Sort sortOrder) {
+        List<TechnologyResponse> technologies = getTechnologiesDTOList();
+        Comparator<TechnologyResponse> comparator = Comparator.comparing(TechnologyResponse::getName);
 
         if (sortOrder == ConstantsAdapters.Sort.DESC) {
             comparator = comparator.reversed();
