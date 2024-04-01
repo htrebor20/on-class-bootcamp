@@ -1,6 +1,7 @@
 package com.pragma.onclass.testdata;
 
 import com.pragma.onclass.adapters.ConstantsAdapters;
+import com.pragma.onclass.adapters.driven.jpa.mysql.entity.CapabilityEntity;
 import com.pragma.onclass.adapters.driven.jpa.mysql.entity.TechnologyEntity;
 import com.pragma.onclass.adapters.driving.http.dto.request.AddBootcampRequest;
 import com.pragma.onclass.adapters.driving.http.dto.request.AddCapabilityRequest;
@@ -139,6 +140,10 @@ public class TestData {
         return new AddCapabilityRequest (1L, "Backend Java", "Backend Java Description", Arrays.asList(1L, 2L, 3L));
     }
 
+    public static CapabilityEntity createCapabilityEntity() {
+        return new CapabilityEntity (1L, "Backend Java", "Backend Java Description", getTechnologiesEntityList());
+    }
+
     public static Capability createCapabilityModelWithRepeatTech() {
         List<Technology> technologies = getTechnologiesListRepeat();
         technologies.add(new Technology(1L, "Java", "Java language"));
@@ -237,6 +242,21 @@ public class TestData {
         } else {
             return capabilities;
         }
+    }
+
+    public static List<CapabilityEntity> getCapabilitiesEntityList() {
+        List<CapabilityEntity> capabilities = new ArrayList<>();
+        capabilities.add(new CapabilityEntity(1L, "Backend Java", "Backend Java Description", getTechnologiesEntityList()));
+        capabilities.add(new CapabilityEntity(2L, "Frontend JavaScript", "Frontend JavaScript Description", getTechnologiesEntityList()));
+        capabilities.add(new CapabilityEntity(3L, "Mobile Development", "Mobile Development Description", getTechnologiesEntityList()));
+        return capabilities;
+    }
+
+    public static Page<CapabilityEntity> getCapabilitiesEntityPage() {
+        int pageSize = 10;
+        int fromIndex = 0;
+        int toIndex = Math.min(fromIndex + pageSize, getTechnologiesEntityList().size());
+        return new PageImpl<>(getCapabilitiesEntityList().subList(fromIndex, toIndex));
     }
 
     /// BOOTCAMP ///

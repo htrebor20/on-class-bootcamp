@@ -25,7 +25,6 @@ import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
 class TechnologyAdapterTest {
-
     @Mock
     private ITechnologyRepository technologyRepository;
     @Mock
