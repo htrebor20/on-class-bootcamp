@@ -1,6 +1,7 @@
 package com.pragma.onclass.testdata;
 
 import com.pragma.onclass.adapters.ConstantsAdapters;
+import com.pragma.onclass.adapters.driven.jpa.mysql.entity.BootcampEntity;
 import com.pragma.onclass.adapters.driven.jpa.mysql.entity.CapabilityEntity;
 import com.pragma.onclass.adapters.driven.jpa.mysql.entity.TechnologyEntity;
 import com.pragma.onclass.adapters.driving.http.dto.request.AddBootcampRequest;
@@ -269,6 +270,10 @@ public class TestData {
         return new AddBootcampRequest (1L, "Pragma Backend", "Backend Java Description", Arrays.asList(1L, 2L, 3L));
     }
 
+    public static BootcampEntity createBootcampEntity() {
+        return new BootcampEntity (1L, "Pragma Backend", "Backend Java Description", getCapabilitiesEntityList());
+    }
+
     public static List<Bootcamp> getBootcampsList() {
         return getBootcampsList(3);
     }
@@ -345,5 +350,20 @@ public class TestData {
         }
         bootcamps.sort(comparator);
         return bootcamps;
+    }
+
+    public static List<BootcampEntity> getBootcampEntityList() {
+        List<BootcampEntity> bootcampEntities = new ArrayList<>();
+        bootcampEntities.add(new BootcampEntity(1L, "Bootcamp Pragma I", "Backend Java Description", getCapabilitiesEntityList()));
+        bootcampEntities.add(new BootcampEntity(2L, "Bootcamp Pragma II", "Frontend JavaScript Description", getCapabilitiesEntityList()));
+        bootcampEntities.add(new BootcampEntity(3L, "Bootcamp Pragma III", "Mobile Development Description", getCapabilitiesEntityList()));
+        return bootcampEntities;
+    }
+
+    public static Page<BootcampEntity> getBootcampEntityPage() {
+        int pageSize = 10;
+        int fromIndex = 0;
+        int toIndex = Math.min(fromIndex + pageSize, getBootcampEntityList().size());
+        return new PageImpl<>(getBootcampEntityList().subList(fromIndex, toIndex));
     }
 }
