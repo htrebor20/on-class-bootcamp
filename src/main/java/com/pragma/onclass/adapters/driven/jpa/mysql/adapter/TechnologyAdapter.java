@@ -15,15 +15,17 @@ import java.util.Optional;
 public class TechnologyAdapter implements ITechnologyPersistencePort {
     private final ITechnologyRepository technologyRepository;
     private final ITechnologyEntityMapper technologyEntityMapper;
+
     @Override
     public Optional<Technology> getTechnology(String name) {
-        return technologyRepository.findByName(name).map(technology -> technologyEntityMapper.toModel(technology)) ;
+        Optional<TechnologyEntity> technologyEntity = technologyRepository.findByName(name);
+        return technologyEntity.map(technologyEntityMapper::toModel);
     }
 
     @Override
     public List<Technology> getAllTechnology(Pageable pageable) {
        List<TechnologyEntity> response = technologyRepository.findAll(pageable).getContent();
-        return technologyEntityMapper.toTechenologyList(response);
+       return technologyEntityMapper.toTechenologyList(response);
     }
 
     @Override

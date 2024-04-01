@@ -1,6 +1,7 @@
 package com.pragma.onclass.testdata;
 
 import com.pragma.onclass.adapters.ConstantsAdapters;
+import com.pragma.onclass.adapters.driven.jpa.mysql.entity.TechnologyEntity;
 import com.pragma.onclass.adapters.driving.http.dto.request.AddBootcampRequest;
 import com.pragma.onclass.adapters.driving.http.dto.request.AddCapabilityRequest;
 import com.pragma.onclass.adapters.driving.http.dto.request.AddTechnologyRequest;
@@ -8,6 +9,8 @@ import com.pragma.onclass.adapters.driving.http.dto.response.*;
 import com.pragma.onclass.domain.model.Bootcamp;
 import com.pragma.onclass.domain.model.Capability;
 import com.pragma.onclass.domain.model.Technology;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -20,6 +23,8 @@ public class TestData {
     public static Technology createTechnologyModel() { return new Technology(1L, "java", "java language");}
 
     public static AddTechnologyRequest createTechnologyDTO() {return new AddTechnologyRequest("java", "java language");}
+
+    public static TechnologyEntity createTechnologyEntity() {return new TechnologyEntity(1L, "java", "java language");}
 
     public static List<Technology> getTechnologiesList() {
         return getTechnologiesList(5);
@@ -59,6 +64,24 @@ public class TestData {
         } else {
             return technologies;
         }
+    }
+
+    public static List<TechnologyEntity> getTechnologiesEntityList() {
+        List<TechnologyEntity> technologies = new ArrayList<>();
+
+        technologies.add(new TechnologyEntity(1L, "Java", "Java language"));
+        technologies.add(new TechnologyEntity(2L, "Python", "Python language"));
+        technologies.add(new TechnologyEntity(3L, "JavaScript", "JavaScript language"));
+
+        return technologies;
+    }
+
+    public static Page<TechnologyEntity> getTechnologiesEntityPage() {
+        int pageSize = 10;
+        int fromIndex = 0;
+        int toIndex = Math.min(fromIndex + pageSize, getTechnologiesEntityList().size());
+
+        return new PageImpl<>(getTechnologiesEntityList().subList(fromIndex, toIndex));
     }
 
     public static List<CapabilityTechnologyResponse> getCapabilityTechnologyResponseList() {
