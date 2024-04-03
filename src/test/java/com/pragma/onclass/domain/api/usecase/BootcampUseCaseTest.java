@@ -41,12 +41,14 @@ class BootcampUseCaseTest {
         List<Capability> capabilities = TestData.getCapabilityList();
         given(capabilityServicePort.getAllCapabilitiesByIds(anyList())).willReturn(capabilities);
         bootcampUseCase.saveBootcamp(bootcamp);
+
         verify(bootcampPersistencePort).saveBootcamp(bootcamp);
     }
 
     @Test
     void shouldThrowExceptionIfNumberOfIdsIsOutOfRange() {
-        Bootcamp bootcamp = new Bootcamp(1L, "Bootcamp Pragma", "Bootcamp Pragma Backend", new ArrayList<>());
+        Bootcamp bootcamp = new Bootcamp(1L, "Bootcamp Pragma", "Bootcamp Pragma Backend", new ArrayList<>(), null);
+
         assertThrows(BadRequestValidationException.class,() -> bootcampUseCase.saveBootcamp(bootcamp));
     }
 

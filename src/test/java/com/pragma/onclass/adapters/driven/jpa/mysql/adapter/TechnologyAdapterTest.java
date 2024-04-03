@@ -44,7 +44,6 @@ class TechnologyAdapterTest {
 
         verify(technologyRepository).findByName("java");
         verify(technologyEntityMapper).toModel(technologyEntity);
-
         assertThat(result).isPresent();
         result.ifPresent(tech -> assertThat(tech.getName()).isEqualTo("java"));
     }

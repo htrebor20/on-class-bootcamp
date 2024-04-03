@@ -26,4 +26,7 @@ public class BootcampEntity {
             joinColumns = @JoinColumn(name = "bootcamp_id"),
             inverseJoinColumns = @JoinColumn(name = "capability_id"))
     private List<CapabilityEntity> capabilities;
-}
+
+    @OneToMany(mappedBy = "bootcamp", cascade = CascadeType.ALL)
+    private List<VersionEntity> versions;
+   }

@@ -8,12 +8,13 @@ public class Bootcamp {
     private final String name;
     private final String description;
     private List<Capability> capabilities;
-
-    public Bootcamp(Long id, String name, String description, List<Capability> capabilities) {
+    private List<Version> versions;
+    public Bootcamp(Long id, String name, String description, List<Capability> capabilities, List<Version> versions) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.capabilities = capabilities;
+        this.versions = versions;
     }
 
     public Long getId() {
@@ -32,8 +33,16 @@ public class Bootcamp {
         return capabilities;
     }
 
+    public List<Version> getVersions() {
+        return versions;
+    }
+
     public void setCapabilities(List<Capability> capabilities) {
         this.capabilities = capabilities;
+    }
+
+    public void setVersions(List<Version> versions) {
+        this.versions = versions;
     }
 
     @Override

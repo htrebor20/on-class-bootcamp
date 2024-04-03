@@ -28,7 +28,7 @@ public class BootcampUseCase implements IBootcampServicePort {
         if (bootcamp.getCapabilities().isEmpty() || bootcamp.getCapabilities().size() > 4) {
             throw new BadRequestValidationException(Constants.BOOTCAMP_VALIDATIONS_EXCEPTION_MESSAGE);
         }
-        List<Long> ids = bootcamp.getCapabilities().stream().map(capability -> capability.getId()).toList();
+        List<Long> ids = bootcamp.getCapabilities().stream().map(Capability::getId).toList();
         List<Capability> allCapabilitiesByIds = capabilityServicePort.getAllCapabilitiesByIds(ids);
         bootcamp.setCapabilities(allCapabilitiesByIds);
         bootcampPersistencePort.saveBootcamp(bootcamp);

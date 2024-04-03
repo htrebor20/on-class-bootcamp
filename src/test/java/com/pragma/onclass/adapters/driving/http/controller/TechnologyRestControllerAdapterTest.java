@@ -148,5 +148,4 @@ class TechnologyRestControllerAdapterTest {
         assertEquals("C++", bodyResponse.get(0).getName());
         assertEquals("Java", bodyResponse.get(1).getName());
     }
-
 }

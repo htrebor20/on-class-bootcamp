@@ -35,6 +35,7 @@ class TechnologyUseCaseTest {
     @Test
     void shouldSaveTechnologySuccessfully() {
         technologyUseCase.saveTechnology(technology);
+
         verify(technologyPersistencePort).saveTechnology(technology);
     }
 

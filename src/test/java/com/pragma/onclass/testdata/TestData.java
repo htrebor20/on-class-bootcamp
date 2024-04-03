@@ -263,7 +263,7 @@ public class TestData {
     /// BOOTCAMP ///
 
     public static Bootcamp createBootcamp() {
-        return new Bootcamp(1L, "Bootcamp Pragma", "Bootcamp Pragma Backend", getCapabilityList());
+        return new Bootcamp(1L, "Bootcamp Pragma", "Bootcamp Pragma Backend", getCapabilityList(), null);
     }
 
     public static AddBootcampRequest createBootcampDTO() {
@@ -271,7 +271,7 @@ public class TestData {
     }
 
     public static BootcampEntity createBootcampEntity() {
-        return new BootcampEntity (1L, "Pragma Backend", "Backend Java Description", getCapabilitiesEntityList());
+        return new BootcampEntity (1L, "Pragma Backend", "Backend Java Description", getCapabilitiesEntityList(),null);
     }
 
     public static List<Bootcamp> getBootcampsList() {
@@ -280,9 +280,9 @@ public class TestData {
 
     public static List<Bootcamp> getBootcampsList(int maxCapacities) {
         List<Bootcamp> bootcamp = new ArrayList<>();
-        bootcamp.add(new Bootcamp(1L, "Bootcamp Pragma I", "Backend Java Description", getCapabilityList(2)));
-        bootcamp.add(new Bootcamp(2L, "Bootcamp Pragma II", "Frontend Javascript Description", getCapabilityList(1)));
-        bootcamp.add(new Bootcamp(3L, "Bootcamp Pragma III", "Mobile Flutter Description", getCapabilityList(3)));
+        bootcamp.add(new Bootcamp(1L, "Bootcamp Pragma I", "Backend Java Description", getCapabilityList(2), null));
+        bootcamp.add(new Bootcamp(2L, "Bootcamp Pragma II", "Frontend Javascript Description", getCapabilityList(1), null));
+        bootcamp.add(new Bootcamp(3L, "Bootcamp Pragma III", "Mobile Flutter Description", getCapabilityList(3), null));
 
         if (maxCapacities > 0 && maxCapacities < bootcamp.size()) {
             return bootcamp.subList(0, maxCapacities);
@@ -354,9 +354,9 @@ public class TestData {
 
     public static List<BootcampEntity> getBootcampEntityList() {
         List<BootcampEntity> bootcampEntities = new ArrayList<>();
-        bootcampEntities.add(new BootcampEntity(1L, "Bootcamp Pragma I", "Backend Java Description", getCapabilitiesEntityList()));
-        bootcampEntities.add(new BootcampEntity(2L, "Bootcamp Pragma II", "Frontend JavaScript Description", getCapabilitiesEntityList()));
-        bootcampEntities.add(new BootcampEntity(3L, "Bootcamp Pragma III", "Mobile Development Description", getCapabilitiesEntityList()));
+        bootcampEntities.add(new BootcampEntity(1L, "Bootcamp Pragma I", "Backend Java Description", getCapabilitiesEntityList(),null));
+        bootcampEntities.add(new BootcampEntity(2L, "Bootcamp Pragma II", "Frontend JavaScript Description", getCapabilitiesEntityList(),null));
+        bootcampEntities.add(new BootcampEntity(3L, "Bootcamp Pragma III", "Mobile Development Description", getCapabilitiesEntityList(),null));
         return bootcampEntities;
     }
 
