@@ -5,6 +5,9 @@ public class ConstantsAdapters {
         throw new IllegalStateException("utility class");
     }
 
+    public static final String DEFAULT_PAGE = "0";
+    public static final String DEFAULT_SIZE = "5";
+
     public enum Sort {
         ASC,
         DESC

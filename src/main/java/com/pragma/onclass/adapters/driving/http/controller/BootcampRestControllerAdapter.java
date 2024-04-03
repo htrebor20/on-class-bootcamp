@@ -28,8 +28,8 @@ public class BootcampRestControllerAdapter {
     }
 
     @GetMapping("/")
-    public ResponseEntity<List<BootcampResponse>> getAllBootcamp(@RequestParam Integer page,
-                                                                 @RequestParam Integer size,
+    public ResponseEntity<List<BootcampResponse>> getAllBootcamp(@RequestParam(defaultValue = ConstantsAdapters.DEFAULT_PAGE) Integer page,
+                                                                 @RequestParam(defaultValue = ConstantsAdapters.DEFAULT_SIZE) Integer size,
                                                                  @RequestParam(required = false) ConstantsAdapters.Sort sort,
                                                                  @RequestParam(required = false) ConstantsAdapters.SortBy sortBy) {
         List<Bootcamp> response = bootcampServicePort.getAllBootcamp(page, size, sort, sortBy);
