@@ -22,4 +22,7 @@ public interface IBootcampRequestMapper {
     }
     @Mapping(target = "capabilities",  qualifiedByName = "mapListCapabilitiesWithoutDesc")
     List<BootcampResponse>toBootcampResponseList(List<Bootcamp> bootcampList);
+
+    @Mapping(target = "versions",  qualifiedByName = "mapListVersionWithoutBootcampId")
+    List<BootcampResponse>toBoocampVersionResponseList(List<Bootcamp> bootcampList);
 }

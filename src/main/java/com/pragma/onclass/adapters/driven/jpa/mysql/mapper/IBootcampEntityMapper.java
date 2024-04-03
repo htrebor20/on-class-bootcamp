@@ -10,7 +10,9 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 
 public interface IBootcampEntityMapper {
+    @Mapping(target = "versions", ignore = true)
     Bootcamp toModel(BootcampEntity bootcampEntity);
+
     BootcampEntity toEntity(Bootcamp bootcamp);
 
     @Mapping(target = "capabilities", qualifiedByName = "toCapabilityList")

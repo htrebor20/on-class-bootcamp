@@ -58,4 +58,16 @@ public class BootcampUseCase implements IBootcampServicePort {
         }
         return bootcampPersistencePort.getAllBootcamp(pagination);
     }
+
+    @Override
+    public Bootcamp findById(Long id) {
+        if(id==null) {
+            throw new BadRequestValidationException(String.format(Constants.ID_BOOTCAMP_VALIDATIONS_EXCEPTION_MESSAGE, id));
+        }
+        Bootcamp bootcamp = bootcampPersistencePort.findById(id);
+        if(bootcamp==null) {
+            throw new BadRequestValidationException(String.format(Constants.ID_BOOTCAMP_VALIDATIONS_EXCEPTION_MESSAGE, id));
+        }
+        return bootcamp;
+    }
 }

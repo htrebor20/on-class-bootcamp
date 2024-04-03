@@ -77,6 +77,6 @@ public class BeanConfiguration {
 
     @Bean
     public IVersionServicePort versionServicePort() {
-        return new VersionUseCase(versionPersistencePort());
+        return new VersionUseCase(versionPersistencePort(), bootcampServicePort());
     }
 }

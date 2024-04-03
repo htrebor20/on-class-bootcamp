@@ -5,25 +5,21 @@ import java.util.Objects;
 
 public class Version {
     private final Long id;
-    private final Long idBootcamp;
     private final LocalDate startDate;
     private final LocalDate endingDate;
     private final int maximumQuota;
+    private Bootcamp bootcamp;
 
-    public Version(Long id, Long idBootcamp, LocalDate startDate, LocalDate endingDate, int maximumQuota) {
+    public Version(Long id, LocalDate startDate, LocalDate endingDate, int maximumQuota, Bootcamp bootcamp) {
         this.id = id;
-        this.idBootcamp = idBootcamp;
         this.startDate = startDate;
         this.endingDate = endingDate;
         this.maximumQuota = maximumQuota;
+        this.bootcamp = bootcamp;
     }
 
     public Long getId() {
         return id;
-    }
-
-    public Long getIdBootcamp() {
-        return idBootcamp;
     }
 
     public LocalDate getStartDate() {
@@ -38,16 +34,24 @@ public class Version {
         return maximumQuota;
     }
 
+    public Bootcamp getBootcamp() {
+        return bootcamp;
+    }
+
+    public void setBootcamp(Bootcamp bootcamp) {
+        this.bootcamp = bootcamp;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Version version = (Version) o;
-        return maximumQuota == version.maximumQuota && Objects.equals(id, version.id) && Objects.equals(idBootcamp, version.idBootcamp) && Objects.equals(startDate, version.startDate) && Objects.equals(endingDate, version.endingDate);
+        return maximumQuota == version.maximumQuota && Objects.equals(id, version.id) && Objects.equals(startDate, version.startDate) && Objects.equals(endingDate, version.endingDate) && Objects.equals(bootcamp, version.bootcamp);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, idBootcamp, startDate, endingDate, maximumQuota);
+        return Objects.hash(id, startDate, endingDate, maximumQuota, bootcamp);
     }
 }

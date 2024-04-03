@@ -10,4 +10,5 @@ public interface IBootcampPersistencePort {
     List<Bootcamp> getAllBootcamp(Pageable pageable);
     List<Bootcamp> findAllSortedByCapabilityCountAsc(Pageable pageable);
     List<Bootcamp> findAllSortedByCapabilityCountDesc(Pageable pageable);
+    Bootcamp findById(Long id);
 }

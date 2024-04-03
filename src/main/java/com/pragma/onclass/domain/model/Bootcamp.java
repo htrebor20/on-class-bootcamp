@@ -9,6 +9,7 @@ public class Bootcamp {
     private final String description;
     private List<Capability> capabilities;
     private List<Version> versions;
+
     public Bootcamp(Long id, String name, String description, List<Capability> capabilities, List<Version> versions) {
         this.id = id;
         this.name = name;

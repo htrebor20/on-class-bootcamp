@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 public class BootcampAdapter implements IBootcampPersistencePort {
@@ -36,5 +37,11 @@ public class BootcampAdapter implements IBootcampPersistencePort {
     public List<Bootcamp> findAllSortedByCapabilityCountDesc(Pageable pageable) {
         List<BootcampEntity> response = bootcampRepository.findAllSortedByCapabilityCountDesc(pageable).getContent();
         return bootcampEntityMapper.toBootcampList(response);
+    }
+
+    @Override
+    public Bootcamp findById(Long id) {
+         Optional<BootcampEntity> bootcamp = bootcampRepository.findById(id);
+         return bootcamp.map(bootcampEntityMapper::toModel).orElse(null);
     }
 }
