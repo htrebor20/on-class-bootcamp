@@ -3,21 +3,27 @@ package com.pragma.onclass.configuration;
 import com.pragma.onclass.adapters.driven.jpa.mysql.adapter.BootcampAdapter;
 import com.pragma.onclass.adapters.driven.jpa.mysql.adapter.CapabilityAdapter;
 import com.pragma.onclass.adapters.driven.jpa.mysql.adapter.TechnologyAdapter;
+import com.pragma.onclass.adapters.driven.jpa.mysql.adapter.VersionAdapter;
 import com.pragma.onclass.adapters.driven.jpa.mysql.mapper.IBootcampEntityMapper;
 import com.pragma.onclass.adapters.driven.jpa.mysql.mapper.ICapabilityEntityMapper;
 import com.pragma.onclass.adapters.driven.jpa.mysql.mapper.ITechnologyEntityMapper;
+import com.pragma.onclass.adapters.driven.jpa.mysql.mapper.IVersionEntityMapper;
 import com.pragma.onclass.adapters.driven.jpa.mysql.repository.IBootcampRepository;
 import com.pragma.onclass.adapters.driven.jpa.mysql.repository.ICapabilityRepository;
 import com.pragma.onclass.adapters.driven.jpa.mysql.repository.ITechnologyRepository;
+import com.pragma.onclass.adapters.driven.jpa.mysql.repository.IVersionRepository;
 import com.pragma.onclass.domain.api.IBootcampServicePort;
 import com.pragma.onclass.domain.api.ICapabilityServicePort;
 import com.pragma.onclass.domain.api.ITechnologyServicePort;
+import com.pragma.onclass.domain.api.IVersionServicePort;
 import com.pragma.onclass.domain.api.usecase.BootcampUseCase;
 import com.pragma.onclass.domain.api.usecase.CapabilityUseCase;
 import com.pragma.onclass.domain.api.usecase.TechnologyUseCase;
+import com.pragma.onclass.domain.api.usecase.VersionUseCase;
 import com.pragma.onclass.domain.spi.IBootcampPersistencePort;
 import com.pragma.onclass.domain.spi.ICapabilityPersistencePort;
 import com.pragma.onclass.domain.spi.ITechnologyPersistencePort;
+import com.pragma.onclass.domain.spi.IVersionPersistencePort;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -31,6 +37,8 @@ public class BeanConfiguration {
     private final ICapabilityEntityMapper capabilityEntityMapper;
     private final IBootcampRepository bootcampRepository;
     private final IBootcampEntityMapper bootcampEntityMapper;
+    private final IVersionRepository versionRepository;
+    private final IVersionEntityMapper versionEntityMapper;
 
     @Bean
     public ITechnologyPersistencePort technologyPersistencePort() {
@@ -60,5 +68,15 @@ public class BeanConfiguration {
     @Bean
     public IBootcampServicePort bootcampServicePort() {
         return new BootcampUseCase(bootcampPersistencePort(), capabilityServicePort());
+    }
+
+    @Bean
+    public IVersionPersistencePort versionPersistencePort() {
+        return new VersionAdapter(versionRepository, versionEntityMapper);
+    }
+
+    @Bean
+    public IVersionServicePort versionServicePort() {
+        return new VersionUseCase(versionPersistencePort());
     }
 }

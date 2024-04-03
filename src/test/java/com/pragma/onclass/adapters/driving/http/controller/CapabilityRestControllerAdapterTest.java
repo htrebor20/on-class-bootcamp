@@ -138,9 +138,9 @@ class CapabilityRestControllerAdapterTest {
 
         ResponseEntity<List<CapabilityResponse>> response = capabilityRestControllerAdapter.getAllCapability(page, size, sort, sortby);
         List<CapabilityResponse> bodyResponse = response.getBody();
+
         verify(capabilityServicePort).getAllCapability(page, size, sort, sortby);
         verify(capabilityRequestMapper).toCapabilityResponseList(capabilityList);
-
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertThat(bodyResponse).isNotNull().hasSize(3);
         assertEquals("Mobile Development", bodyResponse.get(0).getName());

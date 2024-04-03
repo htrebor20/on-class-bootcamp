@@ -25,7 +25,7 @@ public class CapabilityUseCase implements ICapabilityServicePort {
 
     @Override
     public void saveCapability(Capability capability) throws BadRequestValidationException {
-        List<Long> ids = capability.getTechnologies().stream().map(technology -> technology.getId()).toList();
+        List<Long> ids = capability.getTechnologies().stream().map(Technology::getId).toList();
 
         if(Utility.hasRepeatedIds(ids)) {
             throw new BadRequestValidationException(Constants.CAPABILITY_REPEATED_VALIDATIONS_EXCEPTION_MESSAGE);}
