@@ -1,5 +1,6 @@
 package com.pragma.onclass.domain.api.usecase;
 
+import com.pragma.onclass.adapters.ConstantsAdapters;
 import com.pragma.onclass.domain.Constants;
 import com.pragma.onclass.domain.api.IBootcampServicePort;
 import com.pragma.onclass.domain.api.IVersionServicePort;
@@ -7,6 +8,8 @@ import com.pragma.onclass.domain.exception.BadRequestValidationException;
 import com.pragma.onclass.domain.model.Bootcamp;
 import com.pragma.onclass.domain.model.Version;
 import com.pragma.onclass.domain.spi.IVersionPersistencePort;
+
+import java.util.List;
 
 public class VersionUseCase implements IVersionServicePort {
     private final IVersionPersistencePort versionPersistencePort;
@@ -25,5 +28,11 @@ public class VersionUseCase implements IVersionServicePort {
         Bootcamp bootcamp = bootcampServicePort.findById(version.getBootcamp().getId());
         version.setBootcamp(bootcamp);
         versionPersistencePort.saveVersion(version);
+    }
+
+    @Override
+    public List<Version> getAllVersion(Integer page, Integer size, ConstantsAdapters.Sort sort, ConstantsAdapters.SortBy sortBy) {
+
+        return versionPersistencePort.findAll(page, size, sort, sortBy);
     }
 }
