@@ -9,9 +9,6 @@ import com.pragma.onclass.domain.model.Capability;
 import com.pragma.onclass.domain.model.Technology;
 import com.pragma.onclass.domain.spi.ICapabilityPersistencePort;
 import com.pragma.onclass.utilities.Utility;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 
 import java.util.List;
 
@@ -41,27 +38,7 @@ public class CapabilityUseCase implements ICapabilityServicePort {
 
     @Override
     public List<Capability> getAllCapability(Integer page, Integer size, ConstantsAdapters.Sort sort, ConstantsAdapters.SortBy sortBy) {
-        Pageable pagination;
-        if (sort != null && sortBy != null) {
-            if (sortBy == ConstantsAdapters.SortBy.TECHNOLOGY_COUNT) {
-                pagination = PageRequest.of(page, size);
-                if (sort == ConstantsAdapters.Sort.ASC) {
-                    return capabilityPersistencePort.findAllSortedByTechnologyCountAsc(pagination);
-                } else {
-                    return capabilityPersistencePort.findAllSortedByTechnologyCountDesc(pagination);
-                }
-            } else {
-                if (sort == ConstantsAdapters.Sort.ASC) {
-                    pagination = PageRequest.of(page, size, Sort.by("name").ascending());
-
-                } else {
-                    pagination = PageRequest.of(page, size, Sort.by("name").descending());
-                }
-            }
-        } else {
-            pagination = PageRequest.of(page, size);
-        }
-        return capabilityPersistencePort.getAllCapability(pagination);
+        return capabilityPersistencePort.getAllCapability( page, size, sort,sortBy);
     }
 
     @Override
@@ -69,6 +46,3 @@ public class CapabilityUseCase implements ICapabilityServicePort {
         return capabilityPersistencePort.getAllCapabilitiesByIds(ids);
     }
 }
-
-
-

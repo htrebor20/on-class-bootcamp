@@ -1,11 +1,14 @@
 package com.pragma.onclass.adapters.driven.jpa.mysql.adapter;
 
+import com.pragma.onclass.adapters.ConstantsAdapters;
 import com.pragma.onclass.adapters.driven.jpa.mysql.entity.TechnologyEntity;
 import com.pragma.onclass.adapters.driven.jpa.mysql.mapper.ITechnologyEntityMapper;
 import com.pragma.onclass.adapters.driven.jpa.mysql.repository.ITechnologyRepository;
 import com.pragma.onclass.domain.model.Technology;
 import com.pragma.onclass.domain.spi.ITechnologyPersistencePort;
+import com.pragma.onclass.utilities.Sorting;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
@@ -23,9 +26,14 @@ public class TechnologyAdapter implements ITechnologyPersistencePort {
     }
 
     @Override
-    public List<Technology> getAllTechnology(Pageable pageable) {
-       List<TechnologyEntity> response = technologyRepository.findAll(pageable).getContent();
-       return technologyEntityMapper.toTechenologyList(response);
+    public List<Technology> getAllTechnology(Integer page, Integer size, ConstantsAdapters.Sort sortType, ConstantsAdapters.SortBy sortBy) {
+        Pageable pagination = PageRequest.of(page, size);
+
+        if (sortBy == ConstantsAdapters.SortBy.NAME) {
+            pagination = Sorting.sortByField(page, size, sortType, sortBy);
+        }
+        List<TechnologyEntity> response = technologyRepository.findAll(pagination).getContent();
+        return technologyEntityMapper.toTechenologyList(response);
     }
 
     @Override

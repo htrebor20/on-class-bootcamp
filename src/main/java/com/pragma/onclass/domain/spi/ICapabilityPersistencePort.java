@@ -1,14 +1,12 @@
 package com.pragma.onclass.domain.spi;
 
+import com.pragma.onclass.adapters.ConstantsAdapters;
 import com.pragma.onclass.domain.model.Capability;
-import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
 public interface ICapabilityPersistencePort {
     void saveCapability(Capability capability);
-    List<Capability> getAllCapability(Pageable pageable);
-    List<Capability> findAllSortedByTechnologyCountAsc(Pageable pageable);
-    List<Capability> findAllSortedByTechnologyCountDesc(Pageable pageable);
+    List<Capability> getAllCapability(Integer page, Integer size, ConstantsAdapters.Sort sortType, ConstantsAdapters.SortBy sortBy);
     List<Capability> getAllCapabilitiesByIds(List<Long> ids);
 }
