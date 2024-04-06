@@ -35,4 +35,9 @@ public class VersionUseCase implements IVersionServicePort {
 
         return versionPersistencePort.findAll(page, size, sort, sortBy);
     }
+
+    @Override
+    public List<Version> findVersionsByBootcampId(Long bootcampId, Integer page, Integer size, ConstantsAdapters.Sort sort, ConstantsAdapters.SortBy sortBy) {
+        return versionPersistencePort.findVersionsByBootcampId( bootcampId,  page,  size, sort, sortBy);
+    }
 }

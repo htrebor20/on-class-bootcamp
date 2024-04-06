@@ -10,4 +10,5 @@ public interface IVersionPersistencePort {
 
     List<Version> findAll(Integer page, Integer size, ConstantsAdapters.Sort sort, ConstantsAdapters.SortBy sortBy);
 
+    List<Version> findVersionsByBootcampId(Long bootcampId, Integer page, Integer size, ConstantsAdapters.Sort sort, ConstantsAdapters.SortBy sortBy);
 }

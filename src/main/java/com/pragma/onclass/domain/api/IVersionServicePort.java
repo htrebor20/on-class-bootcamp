@@ -10,4 +10,6 @@ public interface IVersionServicePort {
     void saveVersion(Version version) throws BadRequestValidationException;
 
     List<Version> getAllVersion(Integer page, Integer size, ConstantsAdapters.Sort sortType, ConstantsAdapters.SortBy sortBy);
+
+    List<Version> findVersionsByBootcampId(Long bootcampId, Integer page, Integer size, ConstantsAdapters.Sort sort, ConstantsAdapters.SortBy sortBy);
 }

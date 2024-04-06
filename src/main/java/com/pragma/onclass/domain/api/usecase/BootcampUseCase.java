@@ -10,6 +10,7 @@ import com.pragma.onclass.domain.model.Capability;
 import com.pragma.onclass.domain.spi.IBootcampPersistencePort;
 
 import java.util.List;
+import java.util.Optional;
 
 public class BootcampUseCase implements IBootcampServicePort {
     private final IBootcampPersistencePort bootcampPersistencePort;
@@ -38,13 +39,10 @@ public class BootcampUseCase implements IBootcampServicePort {
 
     @Override
     public Bootcamp findById(Long id) {
-        if(id==null) {
+        Optional<Bootcamp> bootcamp = Optional.ofNullable(bootcampPersistencePort.findById(id));
+        if(bootcamp.isEmpty()) {
             throw new BadRequestValidationException(String.format(Constants.ID_BOOTCAMP_VALIDATIONS_EXCEPTION_MESSAGE, id));
         }
-        Bootcamp bootcamp = bootcampPersistencePort.findById(id);
-        if(bootcamp==null) {
-            throw new BadRequestValidationException(String.format(Constants.ID_BOOTCAMP_VALIDATIONS_EXCEPTION_MESSAGE, id));
-        }
-        return bootcamp;
+        return bootcamp.get();
     }
 }

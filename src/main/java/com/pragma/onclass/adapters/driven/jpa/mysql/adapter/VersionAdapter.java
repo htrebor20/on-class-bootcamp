@@ -33,4 +33,14 @@ public class VersionAdapter implements IVersionPersistencePort {
         List<VersionEntity> response = versionRepository.findAll(pagination).getContent();
         return versionEntityMapper.toVersionList(response);
     }
+
+    @Override
+    public List<Version> findVersionsByBootcampId(Long bootcampId, Integer page, Integer size, ConstantsAdapters.Sort sortType, ConstantsAdapters.SortBy sortBy) {
+        Pageable pagination = PageRequest.of(page, size);
+        if (sortBy != null) {
+            pagination = Sorting.sortByField(page, size, sortType, sortBy);
+        }
+        List<VersionEntity> response = versionRepository.findVersionsByBootcampId(bootcampId, pagination).getContent();
+        return versionEntityMapper.toVersionList(response);
+    }
 }
