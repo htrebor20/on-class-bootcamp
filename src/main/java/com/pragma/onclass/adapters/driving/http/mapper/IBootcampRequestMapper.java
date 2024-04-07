@@ -9,8 +9,9 @@ import org.mapstruct.Mapping;
 
 import java.util.List;
 
-
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring",
+        uses = {IVersionRequestMapper.class, ICapabilityRequestMapper.class}
+)
 public interface IBootcampRequestMapper {
     @Mapping(target = "capabilities", source = "capabilityIds")
     Bootcamp addRequestToBootcamp(AddBootcampRequest addBootcampRequest);
@@ -20,9 +21,10 @@ public interface IBootcampRequestMapper {
                 .map(id -> new Capability(id, null, null, null))
                 .toList();
     }
-    @Mapping(target = "capabilities",  qualifiedByName = "mapListCapabilitiesWithoutDesc")
-    List<BootcampResponse>toBootcampResponseList(List<Bootcamp> bootcampList);
 
-    @Mapping(target = "versions",  qualifiedByName = "mapListVersionWithoutBootcampId")
-    List<BootcampResponse>toBoocampVersionResponseList(List<Bootcamp> bootcampList);
+    @Mapping(target = "capabilities", qualifiedByName = "mapListCapabilitiesWithoutDesc")
+    @Mapping(target = "versions", qualifiedByName = "toVersionResponseListWithoutBootcamp")
+    BootcampResponse toBootcampResponse(Bootcamp bootcamp);
+
+    List<BootcampResponse> toBootcampResponseList(List<Bootcamp> bootcampList);
 }

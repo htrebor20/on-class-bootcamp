@@ -6,6 +6,7 @@ import com.pragma.onclass.adapters.driving.http.dto.response.CapabilityResponse;
 import com.pragma.onclass.adapters.driving.http.mapper.ICapabilityRequestMapper;
 import com.pragma.onclass.domain.api.ICapabilityServicePort;
 import com.pragma.onclass.domain.model.Capability;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.apache.coyote.BadRequestException;
 import org.springframework.http.HttpStatus;
@@ -22,7 +23,7 @@ public class CapabilityRestControllerAdapter {
     private final ICapabilityRequestMapper capabilityRequestMapper;
 
     @PostMapping("")
-    public ResponseEntity<Void> addCapability(@RequestBody AddCapabilityRequest request) throws BadRequestException {
+    public ResponseEntity<Void> addCapability(@RequestBody @Valid AddCapabilityRequest request) throws BadRequestException {
         Capability capability = capabilityRequestMapper.addRequestToCapability(request);
         capabilityServicePort.saveCapability(capability);
         return ResponseEntity.status(HttpStatus.CREATED).build();

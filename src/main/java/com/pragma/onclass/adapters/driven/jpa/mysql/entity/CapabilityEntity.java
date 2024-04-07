@@ -18,7 +18,9 @@ public class CapabilityEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private  Long id;
+    @Column(unique = true, length = 50)
     private  String  name;
+    @Column(length = 90)
     private  String description;
 
     @ManyToMany(fetch = FetchType.LAZY)

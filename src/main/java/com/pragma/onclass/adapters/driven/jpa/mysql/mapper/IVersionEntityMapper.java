@@ -12,6 +12,7 @@ public interface IVersionEntityMapper {
     @Mapping(target = "bootcamp", ignore = true)
     Version toModel(VersionEntity versionEntity);
 
+    @Mapping(target = "bootcamp", ignore = true)
     VersionEntity toEntity(Version version);
 
     List<Version> toVersionList(List<VersionEntity> versionEntityList);

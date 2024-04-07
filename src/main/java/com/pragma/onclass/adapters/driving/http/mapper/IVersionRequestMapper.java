@@ -21,9 +21,12 @@ public interface IVersionRequestMapper {
         return  new Bootcamp(bootcampId, null, null, null, null);
     }
 
+    @Mapping(target = "idBootcamp", ignore = true)
     List<VersionResponse> toVersionResponseList(List<Version> versions);
 
-    @Named("mapListVersionWithoutBootcampId")
-    @Mapping(target = "idBootcamp", ignore = true)
-    List<BootcampVersionResponse> mapListVersionWithoutBootcampId(List<Version> versions);
+    BootcampVersionResponse toVersionResponse(Version version);
+
+    @Named("toVersionResponseListWithoutBootcamp")
+    @Mapping(target = "bootcamp", ignore = true)
+    List<BootcampVersionResponse> toVersionResponseListWithoutBootcamp(List<Version> versions);
 }

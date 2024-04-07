@@ -23,7 +23,7 @@ public class TechnologyRestControllerAdapter {
     private final ITechnologyRequestMapper technologyRequestMapper;
 
     @PostMapping("")
-    public ResponseEntity<Void> addTechnology(@Valid @RequestBody AddTechnologyRequest request) throws BadRequestException {
+    public ResponseEntity<Void> addTechnology(@RequestBody @Valid AddTechnologyRequest request) throws BadRequestException {
         technologyServicePort.saveTechnology(technologyRequestMapper.addRequestToTechnology(request));
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }

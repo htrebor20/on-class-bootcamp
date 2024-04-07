@@ -12,5 +12,5 @@ public class BootcampResponse {
         private final String  name;
         private final String description;
         private final List<BootcampCapabilityResponse> capabilities;
-        private List<BootcampVersionResponse> versions;
+        private final List<BootcampVersionResponse> versions;
 }
