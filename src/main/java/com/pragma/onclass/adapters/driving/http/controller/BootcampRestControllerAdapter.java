@@ -6,6 +6,7 @@ import com.pragma.onclass.adapters.driving.http.dto.response.BootcampResponse;
 import com.pragma.onclass.adapters.driving.http.mapper.IBootcampRequestMapper;
 import com.pragma.onclass.domain.api.IBootcampServicePort;
 import com.pragma.onclass.domain.model.Bootcamp;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +22,7 @@ public class BootcampRestControllerAdapter {
     private final IBootcampServicePort bootcampServicePort;
 
     @PostMapping("")
-    public ResponseEntity<Void> addBootcamp(@RequestBody AddBootcampRequest request) {
+    public ResponseEntity<Void> addBootcamp(@RequestBody @Valid AddBootcampRequest request) {
         Bootcamp bootcamp = bootcampRequestMapper.addRequestToBootcamp(request);
         bootcampServicePort.saveBootcamp(bootcamp);
         return ResponseEntity.status(HttpStatus.CREATED).build();
@@ -33,6 +34,9 @@ public class BootcampRestControllerAdapter {
                                                                  @RequestParam(required = false) ConstantsAdapters.Sort sort,
                                                                  @RequestParam(required = false) ConstantsAdapters.SortBy sortBy) {
         List<Bootcamp> response = bootcampServicePort.getAllBootcamp(page, size, sort, sortBy);
-        return ResponseEntity.ok(bootcampRequestMapper.toBootcampResponseList(response));
+        List<BootcampResponse> bootcampResponseList = bootcampRequestMapper.toBootcampResponseList(response);
+
+        return  ResponseEntity.ok(bootcampResponseList);
+
     }
 }

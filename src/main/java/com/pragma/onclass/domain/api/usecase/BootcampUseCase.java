@@ -8,11 +8,9 @@ import com.pragma.onclass.domain.exception.BadRequestValidationException;
 import com.pragma.onclass.domain.model.Bootcamp;
 import com.pragma.onclass.domain.model.Capability;
 import com.pragma.onclass.domain.spi.IBootcampPersistencePort;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 
 import java.util.List;
+import java.util.Optional;
 
 public class BootcampUseCase implements IBootcampServicePort {
     private final IBootcampPersistencePort bootcampPersistencePort;
@@ -36,26 +34,15 @@ public class BootcampUseCase implements IBootcampServicePort {
 
     @Override
     public List<Bootcamp> getAllBootcamp(Integer page, Integer size, ConstantsAdapters.Sort sort, ConstantsAdapters.SortBy sortBy) {
-        Pageable pagination;
-        if (sort != null && sortBy != null) {
-            if (sortBy == ConstantsAdapters.SortBy.CAPABILITY_COUNT) {
-                pagination = PageRequest.of(page, size);
-                if (sort == ConstantsAdapters.Sort.ASC) {
-                    return bootcampPersistencePort.findAllSortedByCapabilityCountAsc(pagination);
-                } else {
-                    return bootcampPersistencePort.findAllSortedByCapabilityCountDesc(pagination);
-                }
-            } else {
-                if (sort == ConstantsAdapters.Sort.ASC) {
-                    pagination = PageRequest.of(page, size, Sort.by("name").ascending());
+        return bootcampPersistencePort.getAllBootcamp(page, size, sort, sortBy);
+    }
 
-                } else {
-                    pagination = PageRequest.of(page, size, Sort.by("name").descending());
-                }
-            }
-        } else {
-            pagination = PageRequest.of(page, size);
+    @Override
+    public Bootcamp findById(Long id) {
+        Optional<Bootcamp> bootcamp = Optional.ofNullable(bootcampPersistencePort.findById(id));
+        if(bootcamp.isEmpty()) {
+            throw new BadRequestValidationException(String.format(Constants.ID_BOOTCAMP_VALIDATIONS_EXCEPTION_MESSAGE, id));
         }
-        return bootcampPersistencePort.getAllBootcamp(pagination);
+        return bootcamp.get();
     }
 }

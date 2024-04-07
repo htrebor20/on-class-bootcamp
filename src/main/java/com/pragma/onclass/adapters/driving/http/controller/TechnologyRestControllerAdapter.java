@@ -23,7 +23,7 @@ public class TechnologyRestControllerAdapter {
     private final ITechnologyRequestMapper technologyRequestMapper;
 
     @PostMapping("")
-    public ResponseEntity<Void> addTechnology(@Valid @RequestBody AddTechnologyRequest request) throws BadRequestException {
+    public ResponseEntity<Void> addTechnology(@RequestBody @Valid AddTechnologyRequest request) throws BadRequestException {
         technologyServicePort.saveTechnology(technologyRequestMapper.addRequestToTechnology(request));
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
@@ -31,8 +31,9 @@ public class TechnologyRestControllerAdapter {
     @GetMapping("/")
     public ResponseEntity<List<TechnologyResponse>> getAllTechnology(@RequestParam(defaultValue = ConstantsAdapters.DEFAULT_PAGE) Integer page,
                                                                      @RequestParam(defaultValue = ConstantsAdapters.DEFAULT_SIZE) Integer size,
-                                                                     @RequestParam(required = false) ConstantsAdapters.Sort sort) {
-        List<Technology> response = technologyServicePort.getAllTechnology(page, size, sort);
+                                                                     @RequestParam(required = false) ConstantsAdapters.Sort sort,
+                                                                     @RequestParam(required = false) ConstantsAdapters.SortBy sortBy){
+        List<Technology> response = technologyServicePort.getAllTechnology(page, size, sort, sortBy);
         return ResponseEntity.ok(technologyRequestMapper.toTechenologyResponseList(response));
     }
 }

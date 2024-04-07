@@ -17,12 +17,11 @@ public class VersionEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private  Long id;
-    private  Long idBootcamp;
     private  LocalDate startDate;
     private  LocalDate endingDate;
     private  int maximumQuota;
 
     @ManyToOne
-    @JoinColumn(name = "bootcamp_id")
+    @JoinColumn(name = "id_bootcamp")
     private BootcampEntity bootcamp;
 }

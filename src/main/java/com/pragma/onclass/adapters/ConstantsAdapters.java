@@ -16,6 +16,9 @@ public class ConstantsAdapters {
     public enum SortBy {
         NAME,
         TECHNOLOGY_COUNT,
-        CAPABILITY_COUNT
+        CAPABILITY_COUNT,
+        START_DATE,
+        MAXIMUM_QUOTA,
+        BOOTCAMP_NAME
     }
 }

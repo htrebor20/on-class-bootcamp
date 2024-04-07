@@ -5,9 +5,6 @@ import com.pragma.onclass.domain.api.ITechnologyServicePort;
 import com.pragma.onclass.domain.exception.BadRequestValidationException;
 import com.pragma.onclass.domain.model.Technology;
 import com.pragma.onclass.domain.spi.ITechnologyPersistencePort;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 
 import java.util.List;
 
@@ -19,19 +16,8 @@ public class TechnologyUseCase implements ITechnologyServicePort {
     }
 
     @Override
-    public List<Technology> getAllTechnology(Integer page, Integer size, ConstantsAdapters.Sort sort) {
-        Pageable pagination = null;
-        if (sort != null) {
-            if (sort == ConstantsAdapters.Sort.ASC) {
-                pagination = PageRequest.of(page, size, Sort.by("name").ascending());
-            } else {
-                pagination = PageRequest.of(page, size, Sort.by("name").descending());
-            }
-        } else {
-            pagination = PageRequest.of(page, size);
-        }
-
-        return technologyPersistencePort.getAllTechnology(pagination);
+    public List<Technology> getAllTechnology(Integer page, Integer size, ConstantsAdapters.Sort sortType, ConstantsAdapters.SortBy sortBy) {
+        return technologyPersistencePort.getAllTechnology(page, size, sortType, sortBy);
     }
 
     @Override
