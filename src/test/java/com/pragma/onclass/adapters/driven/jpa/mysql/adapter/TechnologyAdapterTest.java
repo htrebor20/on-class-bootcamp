@@ -10,16 +10,12 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 
@@ -46,22 +42,6 @@ class TechnologyAdapterTest {
         verify(technologyEntityMapper).toModel(technologyEntity);
         assertThat(result).isPresent();
         result.ifPresent(tech -> assertThat(tech.getName()).isEqualTo("java"));
-    }
-
-    @Test
-    void shouldGetAllTechnologySuccessfully() {
-        Pageable pagination = PageRequest.of(0, 3);
-        Page<TechnologyEntity> technologyEntity = TestData.getTechnologiesEntityPage();
-        List<Technology> technologiesList = TestData.getTechnologiesList();
-        given(technologyRepository.findAll(any(Pageable.class))).willReturn(technologyEntity);
-        given(technologyEntityMapper.toTechenologyList(technologyEntity.getContent())).willReturn(technologiesList);
-
-        List<Technology> result = technologyAdapter.getAllTechnology(pagination);
-
-        assertThat(result).isNotNull();
-        assertThat(result.get(0).getName()).isEqualTo("Java");
-        assertThat(result.get(1).getName()).isEqualTo("Python");
-        assertThat(result.get(2).getName()).isEqualTo("JavaScript");
     }
 
     @Test

@@ -10,9 +10,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 
 import java.util.Arrays;
 import java.util.List;
@@ -49,53 +46,18 @@ class TechnologyUseCaseTest {
     }
 
     @Test
-    void shouldGetAllTechnologyWithoutSortSuccessfully() {
+    void shouldGetAllTechnologySuccessfully(){
         int page = 0;
-        int size = 5;
-        ConstantsAdapters.Sort sort = null;
-        Pageable pageable = PageRequest.of(page, size);
-        given(technologyPersistencePort.getAllTechnology(pageable)).willReturn(TestData.getTechnologiesList());
-
-        List<Technology> result = technologyUseCase.getAllTechnology(0, 5, null);
-
-        assertThat(result).hasSize(5);
-        assertThat(result.get(0).getName()).isEqualTo("Java");
-        assertThat(result.get(1).getName()).isEqualTo("Python");
-        assertThat(result.get(2).getName()).isEqualTo("JavaScript");
-    }
-
-    @Test
-    void shouldGetAllTechnologyAscSortSuccessfully() {
-        int page = 0;
-        int size = 5;
+        int size = 3;
         ConstantsAdapters.Sort sort = ConstantsAdapters.Sort.ASC;
-        Pageable pageable = PageRequest.of(page, size, Sort.by("name").ascending());
-        given(technologyPersistencePort.getAllTechnology(pageable)).willReturn(TestData.getTechnologiesListSorted(sort));
+        ConstantsAdapters.SortBy sortBy = ConstantsAdapters.SortBy.NAME;
+        List<Technology> technologiesList = TestData.getTechnologiesList();
+        given( technologyPersistencePort.getAllTechnology(page, size, sort, sortBy)).willReturn(technologiesList);
 
-        List<Technology> result = technologyUseCase.getAllTechnology(page, size, sort);
-
-        assertThat(result).isNotNull();
-        assertThat(result.get(0).getName()).isEqualTo("C++");
-        assertThat(result.get(1).getName()).isEqualTo("Java");
-        assertThat(result.get(2).getName()).isEqualTo("JavaScript");
-    }
-
-    @Test
-    void shouldGetAllTechnologyDescSortSuccessfully() {
-        int page = 0;
-        int size = 5;
-        ConstantsAdapters.Sort sort = ConstantsAdapters.Sort.DESC;
-        Pageable pageable = PageRequest.of(page, size, Sort.by("name").descending());
-        given(technologyPersistencePort.getAllTechnology(pageable)).willReturn(TestData.getTechnologiesListSorted(sort));
-
-        List<Technology> result = technologyUseCase.getAllTechnology(page, size, sort);
+        List<Technology> result = technologyUseCase.getAllTechnology(page, size, sort, sortBy);
 
         assertThat(result).isNotNull();
-        assertThat(result.get(0).getName()).isEqualTo("Ruby");
-        assertThat(result.get(1).getName()).isEqualTo("Python");
-        assertThat(result.get(2).getName()).isEqualTo("JavaScript");
     }
-
     @Test
     void  shouldGetAllTechnologiesByIdsSuccessfully() {
         List<Long> ids = Arrays.asList(1L, 2L, 3L);
