@@ -29,7 +29,7 @@ public class CapabilityRestControllerAdapter {
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    @GetMapping("/")
+    @GetMapping("")
     public ResponseEntity<List<CapabilityResponse>> getAllCapability(@RequestParam(defaultValue = ConstantsAdapters.DEFAULT_PAGE) Integer page,
                                                                      @RequestParam(defaultValue = ConstantsAdapters.DEFAULT_SIZE) Integer size,
                                                                      @RequestParam(required = false) ConstantsAdapters.Sort sort,

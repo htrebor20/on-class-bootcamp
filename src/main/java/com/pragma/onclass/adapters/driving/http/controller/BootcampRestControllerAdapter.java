@@ -28,7 +28,7 @@ public class BootcampRestControllerAdapter {
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    @GetMapping("/")
+    @GetMapping("")
     public ResponseEntity<List<BootcampResponse>> getAllBootcamp(@RequestParam(defaultValue = ConstantsAdapters.DEFAULT_PAGE) Integer page,
                                                                  @RequestParam(defaultValue = ConstantsAdapters.DEFAULT_SIZE) Integer size,
                                                                  @RequestParam(required = false) ConstantsAdapters.Sort sort,
