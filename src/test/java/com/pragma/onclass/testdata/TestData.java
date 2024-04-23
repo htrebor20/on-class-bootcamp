@@ -297,9 +297,9 @@ public class TestData {
 
     public static List<BootcampResponse> getBootcampsDTOList(int maxCapacities) {
         List<BootcampResponse> bootcamp = new ArrayList<>();
-        bootcamp.add(new BootcampResponse(1L, "Bootcamp Pragma I", "Backend Java Description", getBootcampCapabilitiesResponseList(2)));
-        bootcamp.add(new BootcampResponse(2L, "Bootcamp Pragma II", "Frontend JavaScript Description", getBootcampCapabilitiesResponseList(3)));
-        bootcamp.add(new BootcampResponse(3L, "Bootcamp Pragma III", "Mobile Development Description",getBootcampCapabilitiesResponseList(1)));
+        bootcamp.add(new BootcampResponse(1L, "Bootcamp Pragma I", "Backend Java Description", getBootcampCapabilitiesResponseList(2),null));
+        bootcamp.add(new BootcampResponse(2L, "Bootcamp Pragma II", "Frontend JavaScript Description", getBootcampCapabilitiesResponseList(3),null));
+        bootcamp.add(new BootcampResponse(3L, "Bootcamp Pragma III", "Mobile Development Description",getBootcampCapabilitiesResponseList(1),null));
         if (maxCapacities > 0 && maxCapacities < bootcamp.size()) {
             return bootcamp.subList(0, maxCapacities);
         } else {
