@@ -28,7 +28,7 @@ public class VersionRestControllerAdapter {
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    @GetMapping("/")
+    @GetMapping("")
     public ResponseEntity<List<VersionResponse>> getAllVersion(@RequestParam(defaultValue = ConstantsAdapters.DEFAULT_PAGE) Integer page,
                                                                @RequestParam(defaultValue = ConstantsAdapters.DEFAULT_SIZE) Integer size,
                                                                @RequestParam(required = false) ConstantsAdapters.Sort sort,
